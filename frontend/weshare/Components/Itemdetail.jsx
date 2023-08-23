@@ -3,10 +3,10 @@
 /* eslint-disable react/prop-types */
 import Image from "next/image";
 import { useState } from "react";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import Skeleton from "react-loading-skeleton";
 import useGetItem from "../hooks/Item/useGetItem";
 import useCreateOrder from "../hooks/Order/useCreateOrder";
-
 import styles from "../styles/itemdetail.module.scss";
 
 export default function Itemdetail({ params }) {
@@ -25,20 +25,16 @@ export default function Itemdetail({ params }) {
   const itemSellerPhone = item?.user.phone ?? "";
   const itemSellerImage = item?.user.image ?? "";
   const [quantity, setQuantity] = useState(1);
-  const { isLoading1, error, order, createOrder,success } = useCreateOrder();
+  const { isLoading1, error, order, createOrder, success } = useCreateOrder();
   const handleOrder = async () => {
     await createOrder(itemId, quantity);
     if (success) {
-      Swal.fire(
-        '成功',
-        '訂單成功建立!',
-        'success'
-      );
+      Swal.fire("成功", "訂單成功建立!", "success");
     } else if (error) {
       Swal.fire(
-        '錯誤',
+        "錯誤",
         error, // Displaying the error message returned by useCreateOrder hook
-        'error'
+        "error"
       );
     }
   };
@@ -48,18 +44,26 @@ export default function Itemdetail({ params }) {
   const handleDecrement = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
-console.log(item)
+  console.log(item);
   return (
     <div>
       <div className={styles.ItemBoard}>
         <div className={styles.rightblock}>
-          <Image
-            className={styles.Pic}
-            src={itemImage}
-            alt="ItemPicture"
-            width={400}
-            height={400}
-          />
+          {isLoading ? (
+            <Skeleton
+              className={styles.Pic}
+              width={400}
+              height={400}
+            />
+          ) : (
+            <Image
+              className={styles.Pic}
+              src={itemImage}
+              alt="ItemPicture"
+              width={400}
+              height={400}
+            />
+          )}
         </div>
         <div className={styles.leftblock}>
           <div className={styles.div1}>

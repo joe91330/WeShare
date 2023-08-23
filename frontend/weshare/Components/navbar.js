@@ -61,7 +61,7 @@ export default function Navbar({ onFilterChange, onSearchChange }) {
   }, [events]);
   return (
     <header className={style.border}>
-      <Link href="/">
+      <Link className={style.Link} href="/">
         <Image
           className={style.logo}
           src="/logo.png"
@@ -70,7 +70,9 @@ export default function Navbar({ onFilterChange, onSearchChange }) {
           alt="logo"
         />
       </Link>
-      <div className={style.weshare}>We Share</div>
+      <Link className={style.Link} href="/">
+        <div className={style.weshare}>We Share</div>
+      </Link>
       <div>
         <div className={style.search_bar}>
           <Image
@@ -183,7 +185,7 @@ export default function Navbar({ onFilterChange, onSearchChange }) {
             <p className={style.yourname}>{userName}</p>
           </div>
           <div className={style.div2}>
-            <Link href={`/user/${userId}`}>
+            <Link className={style.Link} href={`/user/${userId}`}>
               <div className={style.hovertit}>查看個人檔案</div>
             </Link>
             <div className={style.line} />

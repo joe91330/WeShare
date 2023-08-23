@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import useSWR, { useSWRConfig ,mutate as swrMutate} from "swr";
 import Skeleton from "react-loading-skeleton";
 import useGetProfile from "../hooks/user/useGetProfile";
+import useGetOrder from "../hooks/Order/useGetOrder";
 import useUpdateProfile from "../hooks/user/useUpdateProfile";
 import styles from "../styles/profile.module.scss";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -98,14 +99,14 @@ export default function Profile({ params }) {
       <div className={styles.rate_num}>
         <Image src="/star.png" width={22} height={22} alt="" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        {userRating}/5
+        {userRating && userRating !== 0 ? `${userRating}/5` : "尚無評價"}
       </div>
       <div className={styles.twobtn}>
         <button type="button" className={styles.connectbtn}>
           聯絡買家
         </button>
         <button type="button" className={styles.commentbtn}>
-          客戶評價
+          歷史訂單
         </button>
       </div>
     </div>

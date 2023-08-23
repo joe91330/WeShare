@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-restricted-syntax */
@@ -33,16 +34,9 @@ function getLatLngFromAddress(address, apiKey) {
 export default function Home() {
   const [itemAddress, setItemAddress] = useState(null);
   const [itemLocations, setItemLocations] = useState([]);
-  const [selectedItemId, setSelectedItemId] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("");
-  const [searchValue, setSearchValue] = useState('');
-  const userLocationFromCookie = Cookie.get("userLocation")
-    ? JSON.parse(Cookie.get("userLocation"))
-    : null;
-  const [focusedLocation, setFocusedLocation] = useState(
-    userLocationFromCookie
-  );
-  const [zoom, setZoom] = useState(0); // 初始化為12或您的初始放大值
+  const [searchValue, setSearchValue] = useState("");
+  const [focusedLocation, setFocusedLocation] = useState("");
   const [hoveredItemId, setHoveredItemId] = useState(null);
 
   const handleFilterChange = (value) => {
@@ -51,7 +45,10 @@ export default function Home() {
   const handleSearchChange = (value) => {
     setSearchValue(value);
   };
-  const { items, isLoading, error } = useGetAllItems({ keyword: searchValue ,tag:selectedFilter});
+  const { items, isLoading, error } = useGetAllItems({
+    keyword: searchValue,
+    tag: selectedFilter,
+  });
   useEffect(() => {
     if (items) {
       const newLocations = items.map((item) => ({
@@ -76,21 +73,25 @@ export default function Home() {
   const clearAddress = () => {
     setItemAddress(null);
   };
+  function handleLocationSelect(location) {
+    console.log("Selected location:", location);
+    setFocusedLocation(location);
+  }
 
   return (
     <div>
-      <Navbar onSearchChange={setSearchValue} onFilterChange={setSelectedFilter} />
+      <Navbar
+        onSearchChange={setSearchValue}
+        onFilterChange={setSelectedFilter}
+      />
       <div className="main">
         <div className="mapsearch">
-          <Mapsearch />
+          <Mapsearch onLocationSelect={handleLocationSelect} />
         </div>
         <Map
-          address={itemAddress}
           itemLocations={itemLocations}
           onMapClick={clearAddress}
-          selectedItemId={selectedItemId}
           focusedLocation={focusedLocation}
-          setZoom={setZoom}
           hoveredItemId={hoveredItemId}
         />
 

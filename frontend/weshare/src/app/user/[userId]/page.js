@@ -1,8 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
 
 "use client";
 
-import  { useState } from "react";
+import { useState } from "react";
+import ReactLoading from 'react-loading';
 import Navbar from "../../../../Components/navbar";
 import Profile from "../../../../Components/profile";
 import Itemcard from "../../../../Components/Itemcard";
@@ -10,22 +13,21 @@ import useGetProfile from "../../../../hooks/user/useGetProfile";
 import "./userpage.css";
 
 export default function UserProfile({ params }) {
-  const { userId } =params;
+  const { userId } = params;
   const { user, isLoading } = useGetProfile(userId);
   const [isActive, setActive] = useState(false);
   const toggleActive = () => {
     setActive((prevState) => !prevState);
   };
   if (isLoading) {
-    return <p>Loading...</p>; // Or some loading spinner/component
+    <ReactLoading type={String} color='#2D6047'  />
   }
-
   return (
     <div>
       <Navbar />
       <div className="mainblock">
         <div className="profileblock">
-          <Profile params={userId}/>
+          <Profile params={userId} />
         </div>
         <div className="rightblock">
           <div
@@ -41,7 +43,7 @@ export default function UserProfile({ params }) {
           </div>
         </div>
         <div className="itemplace">
-        {user.item.map((item) => (
+          {user.item.map((item) => (
             <Itemcard
               key={item.id}
               image={item.image}

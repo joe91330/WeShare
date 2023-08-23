@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable @next/next/no-sync-scripts */
 /* eslint-disable react/prop-types */
 
@@ -5,14 +6,13 @@ import Image from "next/image";
 import { useState, useEffect, useRef} from "react";
 import styles from "../styles/mapsearch.module.scss";
 
-export default function Mapsearch() {
+export default function Mapsearch({ onLocationSelect }) {
   const [showSearchBox, setShowSearchBox] = useState(false);
   const [location, setLocation] = useState(null);
   const autoCompleteRef = useRef();
   const inputRef = useRef();
   const options = {
     componentRestrictions: { country: "TW" },
-    // fields: ["address_components", "geometry", "icon", "name"],
     bounds: location
       ? {
           east: location.lng + 0.01,
@@ -37,11 +37,41 @@ export default function Mapsearch() {
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
+
     autoCompleteRef.current = new window.google.maps.places.Autocomplete(
       inputRef.current,
       options
     );
-  }, [showSearchBox]);
+
+    function handlePlaceSelect() {
+      const addressObject = autoCompleteRef.current.getPlace();
+      const address = addressObject.address_components;
+
+      if (address) {
+        setLocation({
+            lat: addressObject.geometry.location.lat(),
+            lng: addressObject.geometry.location.lng(),
+        });
+        
+        if (onLocationSelect) { 
+            onLocationSelect({
+                lat: addressObject.geometry.location.lat(),
+                lng: addressObject.geometry.location.lng(),
+            });
+        }
+      }
+    }
+
+    // 監聽地點選擇事件
+    autoCompleteRef.current.addListener("place_changed", handlePlaceSelect);
+
+    // 清理: 移除監聽器以避免內存洩漏
+    return () => {
+      window.google.maps.event.clearInstanceListeners(autoCompleteRef.current);
+    };
+    
+  }, [showSearchBox, onLocationSelect]);
+
   
   return (
     <div>

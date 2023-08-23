@@ -21,7 +21,8 @@ function Notification({ event }) {
   const { deleteOrder } = useDeleteOrder();
   const { readEvent } = useReadEvent();
   const authorId = Cookies.get("userId");
-
+  const isOrderRequest = event.order.status === "request";
+  const isOrderAgreed = event.order.status === "agree";
   const isSeller =
     event.type === "買家下單通知" && authorId === event.recipient_id.toString();
   const isBuyerRating =
@@ -71,49 +72,47 @@ function Notification({ event }) {
             )}
           </div>
 
-          {isSeller && !isOrderConfirmed && isRead === 0 && (
-            <>
-              <div className={styles.noticontent}>
-                {event.user.name} 購買 {event.order.quantity} 個{" "}
-                {event.order.title}
-              </div>
-              <div className={styles.twobtn}>
-                <button
-                  className={styles.confirmbtn}
-                  type="button"
-                  onClick={handleAgreeOrder}
-                >
-                  確認訂單
-                </button>
-                <button
-                  className={styles.canclebtn}
-                  type="button"
-                  onClick={handleDeleteOrder}
-                >
-                  取消訂單
-                </button>
-              </div>
-            </>
-          )}
+          {isSeller && isOrderRequest && isRead === 0 && (
+        <>
+          <div className={styles.noticontent}>
+            {event.user.name} 購買 {event.order.quantity} 個 {event.order.title}
+          </div>
+          <div className={styles.twobtn}>
+            <button
+              className={styles.confirmbtn}
+              type="button"
+              onClick={handleAgreeOrder}
+            >
+              確認訂單
+            </button>
+            <button
+              className={styles.canclebtn}
+              type="button"
+              onClick={handleDeleteOrder}
+            >
+              取消訂單
+            </button>
+          </div>
+        </>
+      )}
 
-          {isSeller && isOrderConfirmed && isRead === 0 && (
-            <>
-              <div className={styles.noticontent}>
-                {event.user.name} 購買 {event.order.quantity} 個{" "}
-                {event.order.title}
-              </div>
-              <div>
-                <ReactStars
-                  className={styles.giverate}
-                  count={5}
-                  size={24}
-                  color2="#ffd700"
-                  value={rating}
-                  onChange={handleRate}
-                />
-              </div>
-            </>
-          )}
+      {isSeller && isOrderAgreed && isRead === 0 && (
+        <>
+          <div className={styles.noticontent}>
+            {event.user.name} 購買 {event.order.quantity} 個 {event.order.title}
+          </div>
+          <div>
+            <ReactStars
+              className={styles.giverate}
+              count={5}
+              size={24}
+              color2="#ffd700"
+              value={rating}
+              onChange={handleRate}
+            />
+          </div>
+        </>
+      )}
 
           {isBuyerRating && isRead === 0 && (
             <>
