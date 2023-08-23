@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import Image from "next/image";
 import styles from "../styles/createObject.module.scss";
 import useGeoCoder from "../hooks/map/useGeoCoder";
-import useCreateItem from "../hooks/item/useCreateItem";
+import useCreateItem from "../hooks/Item/useCreateItem";
 import useCreateItemImage from "../hooks/Item/useCreateItemImage";
 
 export default function CreateObject() {

@@ -1,5 +1,5 @@
 import Cookie from "js-cookie";
-import useSWRfetch from '../useSWRfetch'; // 根據你的目錄結構調整引入的路徑
+import useSWRfetch from '../useSWRFetch'; // 根據你的目錄結構調整引入的路徑
 
 const userLocation = JSON.parse(Cookie.get("userLocation") || "{}");
 console.log("6666666",userLocation)
