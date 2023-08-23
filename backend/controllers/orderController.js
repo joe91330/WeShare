@@ -45,7 +45,7 @@ module.exports = {
             })
         }
         const result = await orderModel.agreeOrder(res, order_id);
-        const item_update_result = await itemModel.updateNumOfBuyers((checkOrder.num_of_buyers - order.quantity), order.item_id);
+        const item_update_result = await itemModel.updateNumOfBuyers(res, (checkOrder.num_of_buyers - order.quantity), order.item_id);
         const event = await eventModel.addEvent(res, order.item_id, '交易成功通知', order_id, seller_id, order.buyer_id);
         return res.status(200).json({ order: result });
     },

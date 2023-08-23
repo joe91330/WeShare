@@ -2,6 +2,7 @@
 import axios from "axios";
 import { setCookie } from "nookies";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const useLogIn = () => {
   const [error, setError] = useState(null);
@@ -23,6 +24,12 @@ const useLogIn = () => {
         path: "/"
       });
 
+      Swal.fire({
+        title: "登入成功",
+        text: "即將導入主頁！",
+        icon: "success",
+        confirmButtonText: "確定",
+      });
       window.location.href = "/"; // 登入成功後，導向首頁或其他頁面
     } catch (err) {
       setError(err.response?.data?.message || "登入失敗");

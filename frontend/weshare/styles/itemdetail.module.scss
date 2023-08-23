@@ -146,6 +146,7 @@ $common-font: 'Noto Serif TC', serif;
             flex-shrink: 0;
             fill:  lightgray 50% / cover no-repeat;
             margin-right: 1rem;
+            object-fit: cover;
         }
         .sellerphone{
             margin-top: 0.5rem;

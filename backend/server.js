@@ -65,12 +65,18 @@ io.use((socket, next) => {
 })
 
 io.on("connection", (socket) => {
+
+  socket.on("test", (msg) => {
+        const accessToken = socket.handshake.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(accessToken, 'WeShare');
+	socket.join(msg)
+        console.log("Client",decoded.id,"has enter room",msg)
+  })
+
   socket.on("message", async (msg) => {
     const accessToken = socket.handshake.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(accessToken, 'WeShare');
     const room_ID = decoded.id > msg.id ? `${msg.id}${decoded.id}` : `${decoded.id}${msg.id}`
-    socket.join(`chat${room_ID}`)
-    console.log(`chat${room_ID}`)
     try {
     	const sql = "INSERT INTO chat (sender_id, receiver_id, message) VALUES (?, ?, ?)"
     	const [results] = await db.query(sql, [decoded.id,msg.id,msg.message])
@@ -81,8 +87,8 @@ io.on("connection", (socket) => {
                 	id:decoded.id
                 }
     	}
-    	socket.to(`chat${room_ID}`).emit("response",data)
-      console.log("Send success")
+    	io.to(`chat${room_ID}`).emit("response",data)
+        console.log("Send success")
     } catch (err) {
 	    console.error(err)
     }

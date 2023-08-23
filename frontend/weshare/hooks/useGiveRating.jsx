@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 
 function useGiveRating() {
@@ -10,12 +11,12 @@ function useGiveRating() {
     setIsLoading(true);
     setError(null);
 
-    const url = `/${id}/rating`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/users/${id}/rating`;
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorize: `Bearer ${accessToken}`,
+        "Authorization": `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
         rating: ratingValue,
@@ -29,10 +30,13 @@ function useGiveRating() {
       if (!res.ok) {
         throw new Error(data.message || "Failed to give rating.");
       }
-
+      if (response.status === 200) {
+        Swal.fire("成功!", "謝謝您的評分!", "success");
+      }
       setResponse(data);
     } catch (err) {
       setError(err);
+      Swal.fire("失敗!", "評分失敗!", "error");
     } finally {
       setIsLoading(false);
     }

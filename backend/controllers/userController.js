@@ -9,8 +9,7 @@ module.exports = {
         if ( !phone || !password ) {
             return res.status(400).json({ error: 'Phone and password are required' });
         }
-        const pic_path = `http://${process.env.ip}/static/default.png`;
-        const result = await userModel.signin(res, phone, password, pic_path);
+        const result = await userModel.signin(res, phone, password);
         if ( !result.user ) {
             return res.status(403).json({ error: result }); 
         } else {
@@ -26,7 +25,8 @@ module.exports = {
         if ( existUser ) {
             return res.status(403).json({ error: 'Phone already exists' });
         }
-        const result = await userModel.signup(res,name,phone,password)
+        const pic_path = `http://${process.env.ip}/static/default.png`;
+        const result = await userModel.signup(res,name,phone,password,pic_path)
         return res.status(200).json({ data: result })
     },
     updateProfileName: async (req, res) => {

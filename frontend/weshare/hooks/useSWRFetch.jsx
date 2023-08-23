@@ -1,5 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-shadow */
+/* eslint-disable import/no-extraneous-dependencies /
+/ eslint-disable no-shadow */
+
+"use client";
+
 import { parseCookies } from "nookies";
 import { useState } from "react";
 import axios from "axios"; // 首先，引入 axios
@@ -10,7 +13,6 @@ export default (url, options) => {
   const { accessToken } = cookies;
   const { mutate } = useSWRConfig();
   const [isSent, setIsSent] = useState(false);
-  
   const { data, error,isLoading } = useSWR(
     url,
     async (fetchUrl) => {
@@ -18,7 +20,7 @@ export default (url, options) => {
         const res = await axios.get(fetchUrl, {
           headers: { authorization: `Bearer ${accessToken}` }
         });
-        
+
         // Check if the status code is not in the range 200-299
         if (res.status < 200 || res.status >= 300) {
           const error = new Error("An error occurred while fetching the data.");
@@ -26,7 +28,7 @@ export default (url, options) => {
           error.status = res.status;
           throw error;
         }
-        
+
         return res.data; // axios automatically parses JSON
 
       } catch (error) {
@@ -61,3 +63,4 @@ export default (url, options) => {
 
   return { data: data?.data, error ,isLoading};
 };
+

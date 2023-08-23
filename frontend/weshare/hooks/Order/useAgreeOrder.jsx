@@ -10,12 +10,12 @@ function useAgreeOrder() {
         setIsLoading(true);
         setError(null);
 
-        const url = `/orders/${orderId}/agree`;
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/orders/${orderId}/agree`;
         const options = {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorize': `Bearer ${accessToken}`,
+                'Authorization': `Bearer ${accessToken}`,
             },
         };
 

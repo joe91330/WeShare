@@ -38,41 +38,20 @@ export default function LogInOut() {
   };
 
   return (
-    <div id={styles.wholePage}>
-      <div id={styles.border}>
-        <div>
-          <div id={styles.signInUp}>
-            <div className={styles.weshare}>We Share</div>
-            {isRegisterPage ? (
-              <div className={styles.memRL}>會員註冊</div>
-            ) : (
-              <div className={styles.memRL}>會員登入</div>
-            )}
-            <div className={styles.textAndInput}>
-              {isRegisterPage && (
-                <div className={styles.iconAndInput}>
-                  <Image
-                    src="/user_profle_icon.png"
-                    width={30}
-                    height={30}
-                    alt="Example"
-                    className={styles.icon}
-                  />
-                  <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    placeholder="例: Chou Chou Hu"
-                    className={styles.inputFrame}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-              )}
-            </div>
-            <div className={styles.textAndInput}>
+    <div className={styles.border}>
+      <div>
+        <div id={styles.signInUp}>
+          <div className={styles.weshare}>We Share</div>
+          {isRegisterPage ? (
+            <div className={styles.memRL}>會員註冊</div>
+          ) : (
+            <div className={styles.memRL}>會員登入</div>
+          )}
+          <div className={styles.textAndInput}>
+            {isRegisterPage && (
               <div className={styles.iconAndInput}>
                 <Image
-                  src="/phone_icon.png"
+                  src="/user_profle_icon.png"
                   width={30}
                   height={30}
                   alt="Example"
@@ -80,18 +59,58 @@ export default function LogInOut() {
                 />
                 <input
                   type="text"
-                  name="email"
-                  placeholder="例: 0912-345-678"
-                  value={phone}
+                  name="name"
+                  value={name}
+                  placeholder="例: Chou Chou Hu"
                   className={styles.inputFrame}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
+            )}
+          </div>
+          <div className={styles.textAndInput}>
+            <div className={styles.iconAndInput}>
+              <Image
+                src="/phone_icon.png"
+                width={30}
+                height={30}
+                alt="Example"
+                className={styles.icon}
+              />
+              <input
+                type="text"
+                name="email"
+                placeholder="例: 0912-345-678"
+                value={phone}
+                className={styles.inputFrame}
+                onChange={(e) => setPhone(e.target.value)}
+              />
             </div>
-            <div className={styles.textAndInput}>
+          </div>
+          <div className={styles.textAndInput}>
+            <div className={styles.iconAndInput}>
+              <Image
+                src="/lock.png"
+                width={30}
+                height={30}
+                alt="Example"
+                className={styles.icon}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="密碼"
+                value={password}
+                className={styles.inputFrame}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className={styles.textAndInput}>
+            {isRegisterPage && (
               <div className={styles.iconAndInput}>
                 <Image
-                  src="/lock.png"
+                  src="/key_icon.png"
                   width={30}
                   height={30}
                   alt="Example"
@@ -99,79 +118,58 @@ export default function LogInOut() {
                 />
                 <input
                   type="password"
-                  name="password"
-                  placeholder="密碼"
-                  value={password}
+                  name="confirmPassword"
+                  placeholder="再次輸入密碼"
+                  value={passwordAgain}
                   className={styles.inputFrame}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPasswordAgain(e.target.value)}
                 />
               </div>
-            </div>
-            <div className={styles.textAndInput}>
-              {isRegisterPage && (
-                <div className={styles.iconAndInput}>
-                  <Image
-                    src="/key_icon.png"
-                    width={30}
-                    height={30}
-                    alt="Example"
-                    className={styles.icon}
-                  />
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="再次輸入密碼"
-                    value={passwordAgain}
-                    className={styles.inputFrame}
-                    onChange={(e) => setPasswordAgain(e.target.value)}
-                  />
-                </div>
-              )}
-              {signUpError && <p className="errorMessage">{signUpError}</p>}
-              {error && <p className="errorMessage">{error}</p>}
-            </div>
-            {!isRegisterPage ? (
-              <button
-                type="button"
-                className={styles.register}
-                onClick={handleLogIn}
-              >
-                登入
-              </button>
-            ) : (
-              <button
-                type="button"
-                className={styles.register}
-                onClick={handleSignUp}
-              >
-                註冊
-              </button>
             )}
-
-            {isRegisterPage ? (
-              <div className={styles.blackBlueWords}>
-                <div>已經是會員了？ </div>
-                <button
-                  type="button"
-                  className={styles.swichmode}
-                  onClick={handleTogglePage}
-                >
-                  會員登入
-                </button>
-              </div>
-            ) : (
-              <div className={styles.blackBlueWords}>
-                <div>尚未成為會員？</div>
-                <button
-                  type="button"
-                  className={styles.swichmode}
-                  onClick={handleTogglePage}
-                >
-                  會員註冊
-                </button>
-              </div>
-            )}
+            {signUpError && <p className="errorMessage">{signUpError}</p>}
+            {error && <p className="errorMessage">{error}</p>}
           </div>
+          {!isRegisterPage ? (
+            <button
+              type="button"
+              className={styles.register}
+              onClick={handleLogIn}
+            >
+              登入
+            </button>
+          ) : (
+            <button
+              type="button"
+              className={styles.register}
+              onClick={handleSignUp}
+            >
+              註冊
+            </button>
+          )}
+
+          {isRegisterPage ? (
+            <div className={styles.blackBlueWords}>
+              <div>已經是會員了？ </div>
+              <button
+                type="button"
+                className={styles.swichmode}
+                onClick={handleTogglePage}
+              >
+                會員登入
+              </button>
+            </div>
+          ) : (
+            <div className={styles.blackBlueWords}>
+              <div>尚未成為會員？</div>
+              <button
+                type="button"
+                className={styles.swichmode}
+                onClick={handleTogglePage}
+              >
+                會員註冊
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

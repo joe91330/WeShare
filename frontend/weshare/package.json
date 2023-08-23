@@ -56,11 +56,14 @@
     "react-quill": "^2.0.0",
     "react-stars": "^2.2.5",
     "sanitize-html": "^2.11.0",
+    "socket.io-client": "^4.7.2",
     "styled-components": "^6.0.4",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^11.7.20",
+    "sweetalert2": "^11.7.27",
     "swr": "^2.2.1",
     "use-places-autocomplete": "^4.0.1",
+    "uuidv4": "^6.2.13",
+    "ws": "^8.13.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {

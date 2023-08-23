@@ -3,6 +3,7 @@
 /* eslint-disable react/prop-types */
 import Image from "next/image";
 import { useState } from "react";
+import Swal from 'sweetalert2';
 import useGetItem from "../hooks/Item/useGetItem";
 import useCreateOrder from "../hooks/Order/useCreateOrder";
 
@@ -24,9 +25,22 @@ export default function Itemdetail({ params }) {
   const itemSellerPhone = item?.user.phone ?? "";
   const itemSellerImage = item?.user.image ?? "";
   const [quantity, setQuantity] = useState(1);
-  const { isLoading1, error, order, createOrder } = useCreateOrder();
-  const handleOrder = () => {
-    createOrder(itemId, quantity);
+  const { isLoading1, error, order, createOrder,success } = useCreateOrder();
+  const handleOrder = async () => {
+    await createOrder(itemId, quantity);
+    if (success) {
+      Swal.fire(
+        '成功',
+        '訂單成功建立!',
+        'success'
+      );
+    } else if (error) {
+      Swal.fire(
+        '錯誤',
+        error, // Displaying the error message returned by useCreateOrder hook
+        'error'
+      );
+    }
   };
   const handleIncrement = () => {
     if (quantity < itemBuyerLimit) setQuantity(quantity + 1);

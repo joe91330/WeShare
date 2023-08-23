@@ -1,0 +1,31 @@
+.border {
+  border-radius: 1.5rem;
+  border: 2px solid #000;
+  background: #489972;
+  width: 25vh;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0rem 0.5rem 2rem;
+  .picFrame {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .userName {
+    color: #fff;
+    font-family: Permanent Marker;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem; /* 100% */
+    padding-left: 1rem;
+  }
+}
