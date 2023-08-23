@@ -14,7 +14,10 @@ jobs:
       run: |
         cd backend
         echo "${{ secrets.ENV_FILE }}" > .env
-        docker-compose up -d
+        mkdir private
+        echo "${{ secrets.PRIVATE_KEY }}" > private/priv.key
+        echo "${{ secrets.CERTIFICATE_CRT }}" > private/certificate.crt
+        docker-compose --env-file .env up -d
     - name: Wait for containers to start
       run: sleep 10
     - name: Run test file
@@ -41,6 +44,8 @@ jobs:
           cd WeShare/backend
           ls
           echo "${{ secrets.ENV_FILE }}" > .env
+          echo "${{ secrets.PRIVATE_KEY }}" > private/priv.key
+          echo "${{ secrets.CERTIFICATE_CRT }}" > private/certificate.crt
           docker-compose down
           docker-compose --env-file .env up --build -d
           docker logs
