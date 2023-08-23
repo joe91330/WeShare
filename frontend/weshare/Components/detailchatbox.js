@@ -1,12 +1,13 @@
+/* eslint-disable react/prop-types */
+
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import { parseCookies } from "nookies";
 import Image from "next/image";
-import Link from "Next/link";
 import styles from "../styles/detailchatbox.module.scss";
 import useGetMessages from "../hooks/Message/useGetMessage";
-import useGetProfile from "../hooks/user/useGetProfile";
+// import useGetProfile from "../hooks/user/useGetProfile";
 
 // import messagesData from "../Mockdata/messages.json";
 
