@@ -12,7 +12,7 @@ import Navbar from "../../Components/navbar";
 import Map from "../../Components/Map";
 import Mapsearch from "../../Components/Mapsearch";
 import Itemcard from "../../Components/Itemcard";
-import useGetAllItems from "../../hooks/Item/useGetAllItem"; // 請確定這個路徑是正確的
+import useGetAllItems from "../../hooks/Item/useGetAllItem";
 
 const GEOCODING_ENDPOINT = "https://maps.googleapis.com/maps/api/geocode/json";
 function getLatLngFromAddress(address, apiKey) {
@@ -34,16 +34,24 @@ export default function Home() {
   const [itemAddress, setItemAddress] = useState(null);
   const [itemLocations, setItemLocations] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null);
+  const [selectedFilter, setSelectedFilter] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const userLocationFromCookie = Cookie.get("userLocation")
-  ? JSON.parse(Cookie.get("userLocation"))
-  : null;
-console.log()
-const [focusedLocation, setFocusedLocation] = useState(userLocationFromCookie);
+    ? JSON.parse(Cookie.get("userLocation"))
+    : null;
+  const [focusedLocation, setFocusedLocation] = useState(
+    userLocationFromCookie
+  );
   const [zoom, setZoom] = useState(0); // 初始化為12或您的初始放大值
   const [hoveredItemId, setHoveredItemId] = useState(null);
 
-  const { items, isLoading, error } = useGetAllItems();
-
+  const handleFilterChange = (value) => {
+    setSelectedFilter(value);
+  };
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
+  };
+  const { items, isLoading, error } = useGetAllItems({ keyword: searchValue ,tag:selectedFilter});
   useEffect(() => {
     if (items) {
       const newLocations = items.map((item) => ({
@@ -54,11 +62,9 @@ const [focusedLocation, setFocusedLocation] = useState(userLocationFromCookie);
         cost: item.cost,
         image: item.image,
       }));
-      
+
       setItemLocations(newLocations);
-      
     }
-    
   }, [items]);
   const focusOnItem = (itemId) => {
     const focusedItem = itemLocations.find((item) => item.id === itemId);
@@ -73,7 +79,7 @@ const [focusedLocation, setFocusedLocation] = useState(userLocationFromCookie);
 
   return (
     <div>
-      <Navbar />
+      <Navbar onSearchChange={setSearchValue} onFilterChange={setSelectedFilter} />
       <div className="main">
         <div className="mapsearch">
           <Mapsearch />
@@ -95,7 +101,7 @@ const [focusedLocation, setFocusedLocation] = useState(userLocationFromCookie);
             items.map((item) => (
               <Itemcard
                 key={item.id}
-                image={item.image || '/1.png'}
+                image={item.image || "/1.png"}
                 title={item.title}
                 cost={item.cost}
                 id={item.id}

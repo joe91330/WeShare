@@ -3,21 +3,26 @@ import useSWRfetch from '../useSWRFetch'; // 根據你的目錄結構調整引�
 
 const userLocation = JSON.parse(Cookie.get("userLocation") || "{}");
 console.log("6666666",userLocation)
-const useGetAllItems = (cursor = null, keyword = null, tag = null) => {
+
+const useGetAllItems = ({
+  cursor = null,
+  keyword = null,
+  tag = null,
+  latitude = userLocation.latitude || null, // 如果未提供經度，則使用Cookie中的數據
+  longitude = userLocation.longitude || null // 如果未提供緯度，則使用Cookie中的數據
+} = {}) => {
   // 設定基礎 URL
   const baseURL = `${process.env.NEXT_PUBLIC_API_URL}/items`;
 
   // 根據傳入的參數建立完整的 URL
-  let url = baseURL;
-
   const params = [];
   if (cursor) params.push(`cursor=${cursor}`);
   if (keyword) params.push(`keyword=${keyword}`);
   if (tag) params.push(`tag=${tag}`);
+  if (latitude) params.push(`latitude=${latitude}`);
+  if (longitude) params.push(`longitude=${longitude}`);
 
-  if (params.length > 0) {
-    url += `?${params.join('&&')}`;
-  }
+  const url = `${baseURL}?${params.join('&&')}`;
 
   // 使用提供的 useSWRfetch
   const { data, error, isLoading } = useSWRfetch(url, {
