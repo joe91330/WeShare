@@ -10,15 +10,16 @@ import styles from "../styles/navbar.module.scss";
 import useGiveRating from "../hooks/useGiveRating";
 import useAgreeOrder from "../hooks/Order/useAgreeOrder";
 import useDeleteOrder from "../hooks/Order/useDeleteOrder";
+import useReadEvent from "../hooks/useReadEvent";
 
 function Notification({ event }) {
   const [rating, setRating] = useState(null);
   const [isOrderConfirmed, setOrderConfirmed] = useState(false);
-
+  const [isRead, setIsRead] = useState(event.is_read || 0);
   const { giveRating } = useGiveRating();
   const { agreeOrder } = useAgreeOrder();
   const { deleteOrder } = useDeleteOrder();
-
+  const { readEvent } = useReadEvent();
   const authorId = Cookies.get("userId");
 
   const isSeller =
@@ -38,6 +39,9 @@ function Notification({ event }) {
   const handleRate = async (newRating) => {
     setRating(newRating);
     await giveRating(event.user.sender_id, newRating);
+
+    await readEvent(event.id);
+    setIsRead(1);
   };
 
   return (
@@ -54,9 +58,20 @@ function Notification({ event }) {
           <div className={styles.createdtime}>{event.created_at}</div>
         </div>
         <div className={styles.rightboard}>
-          <div className={styles.noticontent}>{event.type}</div>
+          <div className={styles.noticontent}>
+            {event.type}
+            {isRead === 1 && (
+              <Image
+                className={styles.menu_pic}
+                src="/checked.png"
+                width={13}
+                height={13}
+                alt="check"
+              />
+            )}
+          </div>
 
-          {isSeller && !isOrderConfirmed && (
+          {isSeller && !isOrderConfirmed && isRead === 0 && (
             <>
               <div className={styles.noticontent}>
                 {event.user.name} 購買 {event.order.quantity} 個{" "}
@@ -81,7 +96,7 @@ function Notification({ event }) {
             </>
           )}
 
-          {isSeller && isOrderConfirmed && (
+          {isSeller && isOrderConfirmed && isRead === 0 && (
             <>
               <div className={styles.noticontent}>
                 {event.user.name} 購買 {event.order.quantity} 個{" "}
@@ -100,7 +115,7 @@ function Notification({ event }) {
             </>
           )}
 
-          {isBuyerRating && (
+          {isBuyerRating && isRead === 0 && (
             <>
               <div className={styles.noticontent}>
                 {event.user.name} 同意 {event.order.quantity} 個{" "}

@@ -40,6 +40,14 @@ export default function Navbar() {
     Cookies.remove("token");
     router.push("/login"); // 導向登入頁面或其他目標頁面
   };
+  useEffect(() => {
+    if (Array.isArray(events)) {
+      const unreadEventsCount = events.filter(
+        (event) => event.is_read === 0
+      ).length;
+      setNotificationCount(unreadEventsCount);
+    }
+  }, [events]);
   return (
     <header className={style.border}>
       <Link href="/">
@@ -48,7 +56,7 @@ export default function Navbar() {
           src="/logo.png"
           width={100}
           height={100}
-          alt=""
+          alt="logo"
         />
       </Link>
       <div className={style.weshare}>We Share</div>
@@ -130,7 +138,9 @@ export default function Navbar() {
                 </button>
               )}
           </div>
-          <div className={style.is_readcircle}>{notificationCount}</div>
+          {notificationCount > 0 && (
+            <div className={style.is_readcircle}>{notificationCount}</div>
+          )}
         </div>
       </div>
       <div className={style.profilepic}>
