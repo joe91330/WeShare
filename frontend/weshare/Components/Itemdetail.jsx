@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import Cookies from "js-cookie";
+import { useRouter } from 'next/navigation';
 import useGetItem from "../hooks/Item/useGetItem";
 import useCreateOrder from "../hooks/Order/useCreateOrder";
 import styles from "../styles/itemdetail.module.scss";
@@ -15,6 +16,7 @@ export default function Itemdetail({ params }) {
   const itemId = params;
   const { item, isLoading, isError } = useGetItem(itemId);
   const itemTitle = item?.title ?? "";
+  const itemid = item?.id ?? "";
   const itemBuyerLimit = item?.buyers_limit ?? "";
   const itemImage = item?.image ?? "/user.png";
   const itemIntroduction = item?.introduction ?? "";
@@ -31,10 +33,12 @@ export default function Itemdetail({ params }) {
   const [quantity, setQuantity] = useState(1);
   const { isLoading1, error, order, createOrder, success } = useCreateOrder();
   const authorId = Cookies.get("userId");
+  const router = useRouter();
   const handleOrder = async () => {
     await createOrder(itemId, quantity);
     if (success) {
       Swal.fire("成功", "訂單成功建立!", "success");
+      
     } else if (error) {
       Swal.fire(
         "錯誤",
@@ -42,6 +46,7 @@ export default function Itemdetail({ params }) {
         "error"
       );
     }
+    router.push(`/user/${authorId}`); 
   };
   const handleIncrement = () => {
     if (quantity < itemNumOfBuyers) setQuantity(quantity + 1);
@@ -145,9 +150,11 @@ export default function Itemdetail({ params }) {
             {/* 條件渲染按鈕 */}
             {`${itemSellerId}` !== authorId && (
               <div className={styles.twobtn}>
-                <button type="button" className={styles.btn}>
-                  聯絡買家
-                </button>
+                <Link className={styles.Link} href={`/chat/${itemSellerId }`}>
+                  <button type="button" className={styles.btn}>
+                    聯絡買家
+                  </button>
+                </Link>
                 <button
                   type="button"
                   className={styles.btn}
@@ -159,9 +166,11 @@ export default function Itemdetail({ params }) {
             )}
             {`${itemSellerId}` === authorId && (
               <div className={styles.twobtn}>
-                <button type="button" className={styles.btn}>
-                  查看訂單
-                </button>
+                <Link className={styles.Link} href={`/lookfororder/${itemid }`}>
+                  <button type="button" className={styles.btn}>
+                    查看訂單
+                  </button>
+                </Link>
               </div>
             )}
           </div>

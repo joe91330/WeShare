@@ -71,7 +71,7 @@ export default function LogInOut() {
           <div className={styles.textAndInput}>
             <div className={styles.iconAndInput}>
               <Image
-                src="/phone_icon.png"
+                src="/smartphone.png"
                 width={30}
                 height={30}
                 alt="Example"

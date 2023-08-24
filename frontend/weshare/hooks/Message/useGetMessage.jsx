@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { parseCookies } from "nookies";
@@ -16,7 +18,6 @@ const useGetMessages = (userid) => {
   const [error, setError] = useState(null);
   const [socket, setSocket] = useState(null);
   const [nextTenMessagesCursor, setnextTenMessagesCursor] = useState("");
-  const [isFetchingMessages, setIsFetchingMessages] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -48,7 +49,7 @@ const useGetMessages = (userid) => {
     })();
 
     // 建立 socket 連接
-    const newSocket = io("http://13.238.130.147/", {
+    const newSocket = io("https://13.238.130.147/", {
       extraHeaders: {
         Authorization: `Bearer ${accessToken}`,
       },
