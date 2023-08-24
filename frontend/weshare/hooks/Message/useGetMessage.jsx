@@ -49,7 +49,7 @@ const useGetMessages = (userid) => {
     })();
 
     // 建立 socket 連接
-    const newSocket = io("http://13.238.130.147/", {
+    const newSocket = io("https://13.238.130.147/", {
       extraHeaders: {
         Authorization: `Bearer ${accessToken}`,
       },
