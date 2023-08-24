@@ -31,6 +31,7 @@ export default function Navbar({ onFilterChange, onSearchChange }) {
     isLoading: isEventsLoading,
     error: eventsError,
   } = useGetEvents();
+  
   const userName = user?.name ?? "";
   const userImage = user?.image ?? "/2.png";
   const userImage2 = user?.image ?? "/個人照片.png";
