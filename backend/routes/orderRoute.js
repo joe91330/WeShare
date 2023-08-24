@@ -5,6 +5,7 @@ const orderController = require('../controllers/orderController');
 
 router.post('/:item_id', [util.authorize_json, util.authorize_bearer], orderController.addOrder);
 router.get('/', [util.authorize_bearer], orderController.getOrders);
+router.get('/:item_id', [util.authorize_bearer], orderController.getItemOrders);
 router.put('/:order_id/agree', [util.authorize_bearer], orderController.agreeOrder);
 router.delete('/:order_id', [util.authorize_bearer], orderController.delOrder);
 

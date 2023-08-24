@@ -70,6 +70,38 @@ module.exports = {
             return util.databaseError(err,'getItem',res);
         }
     },
+
+    getBuyItems: async (res, user_id) => {
+        try {
+            const sql = 'SELECT item.id, item.title, item.buyers_limit, item.num_of_buyers, item.image, item.introduction, item.cost, item.tag, item.item_location, item.latitude, item.longitude, DATE_FORMAT(item.created_at, "%Y-%m-%d %H:%i:%s") AS created_at, DATE_FORMAT(item.expires_at, "%Y-%m-%d %H:%i:%s") AS expires_at \
+            LEFT JOIN item ON order_table.item_id = item.id \
+            FROM order_table WHERE order_table.buyer_id = ?'
+            const [[results]] = await db.query(sql, [user_id]);
+            let items = [];
+            results.map((result) => {
+                const item = {
+                    id: result.id,
+                    title: result.title, 
+                    buyers_limit: result.buyers_limit,
+                    num_of_buyers: result.num_of_buyers,
+                    image: result.image, 
+                    introduction: result.introduction, 
+                    cost: result.cost, 
+                    tag: result.tag, 
+                    costco: result.costco,
+                    location: result.item_location,
+                    latitude: result.latitude, 
+                    longitude: result.longitude,
+                    created_at: result.created_at,
+                    expires_at: result.expires_at,
+                };
+                items.push(item);
+            })
+            return items;
+        } catch (err) {
+            return util.databaseError(err,'getBuyItems',res);
+        }
+    },
     
     getItems: async ( res, item_id, limit, latitude, longitude, keyword, tag ) => {
         try {
@@ -87,10 +119,13 @@ module.exports = {
             }
             let locationCondition = ''; 
             if (latitude && longitude){
-                locationCondition = `AND item.latitude < ${latitude+0.01} AND item.latitude > ${latitude-0.01} AND item.longitude < ${longitude+0.01} AND item.longitude > ${longitude-0.01}`;
+                latitude = Number(latitude);
+                longitude = Number(longitude);
+                range = 0.05
+                locationCondition = `AND item.latitude BETWEEN ${latitude - range} AND ${latitude + range} AND item.longitude BETWEEN ${longitude - range} AND ${longitude + range}`;
             }
             const sql = `SELECT item.id, item.buyers_limit, item.num_of_buyers, item.title, item.image, item.introduction, item.cost, item.tag, item.item_location, item.latitude, item.longitude, DATE_FORMAT(item.created_at, "%Y-%m-%d %H:%i:%s") AS created_at, DATE_FORMAT(item.expires_at, "%Y-%m-%d %H:%i:%s") AS expires_at, item.seller_id, user.name, user.rating, user.image AS user_image, user.phone \
-                FROM item LEFT JOIN user ON item.seller_id = user.id\
+                FROM item LEFT JOIN user ON item.seller_id = user.id \
                 WHERE item.id <= ${item_id} ${keywordCondition} ${tagCondition} ${locationCondition}\
                 ORDER BY item.id DESC LIMIT ?`;
             const [results] = await db.query(sql, [limit]);

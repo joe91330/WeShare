@@ -1,10 +1,14 @@
+
+"use client";
+
 import useSWRFetch from "../useSWRFetch";
 
 const useGetOrder = () => {
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/orders`;
-  const { data, error, isLoading1 } = useSWRFetch(url);
-
-  return { data, error, isLoading1 };
+  const { data, error } = useSWRFetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/orders`
+  );
+  console.log("data?", data);
+  return { buyHistory: data?.buy,sellHistory: data?.sell, error };
 };
 
 export default useGetOrder;

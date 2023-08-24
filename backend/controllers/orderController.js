@@ -45,15 +45,27 @@ module.exports = {
             })
         }
         const result = await orderModel.agreeOrder(res, order_id);
-        const item_update_result = await itemModel.updateNumOfBuyers((checkOrder.num_of_buyers - order.quantity), order.item_id);
+        const item_update_result = await itemModel.updateNumOfBuyers(res, (checkOrder.num_of_buyers - order.quantity), order.item_id);
         const event = await eventModel.addEvent(res, order.item_id, '交易成功通知', order_id, seller_id, order.buyer_id);
         return res.status(200).json({ order: result });
+    },
+    getItemOrders: async (req, res) => {
+        const user_id = req.user.id;
+        const item_id = parseInt(req.params.item_id);
+        const seller_id = await itemModel.getSeller(res, item_id);
+        if(user_id !== seller_id){
+            return res.status(400).json({
+                error: "Insufficient permissions!"
+            })
+        };
+        const result = await orderModel.getItemOrders(res, item_id, true ,false);
+        return res.status(200).json({ data: { order: result } });
     },
     getOrders: async (req, res) => {
         const user_id = req.user.id;
         const buy_list = await orderModel.getOrders( res, user_id, false );
         const sell_list = await orderModel.getOrders( res, false, user_id );
-        return res.status(200),json({ data: { buy: buy_list, sell: sell_list}});
+        return res.status(200).json({ data: { buy: buy_list, sell: sell_list}});
     },
     delOrder: async (req, res) => {
         const order_id = parseInt(req.params.order_id);

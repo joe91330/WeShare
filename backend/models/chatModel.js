@@ -106,7 +106,7 @@ module.exports = {
             }
             return "message added."
         } catch (err) {
-            return util.databaseError(err,'getUserItem',res);
+            return util.databaseError(err,'addTest',res);
         }
     }
 }

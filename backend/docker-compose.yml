@@ -3,6 +3,8 @@ version: "3.8"
 networks:
   weshare-network:
     driver: bridge
+  # elastic_stack:
+  #   driver: bridge
 
 services:
   
@@ -47,6 +49,17 @@ services:
     networks:
       - weshare-network
 
+  # elasticsearch:
+  #   image: elasticsearch:7.17.10
+  #   container_name: elasticsearch
+  #   networks:
+  #     - elastic_stack
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   environment:
+  #     - discovery.type=single-node
+
   nginx:
     build:
       context: .
@@ -57,8 +70,8 @@ services:
       - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./private/bundle_chained.crt:/etc/ssl/bundle_chained.crt
-      - ./private/private.key:/etc/ssl/private.key
+      - ./private/certificate.crt:/etc/ssl/bundle_chained.crt
+      - ./private/priv.key:/etc/ssl/private.key
     restart: always
     networks:
       - weshare-network

@@ -103,13 +103,15 @@ export default function Navbar({ onFilterChange, onSearchChange }) {
       <Link href="/share" className={style.share_post}>
         Share
       </Link>
-      <Image
-        className={style.message_box}
-        src="/message_box.png"
-        width={36}
-        height={36}
-        alt=""
-      />
+      <Link href={`/chat/${userId}`}>
+        <Image
+          className={style.message_box}
+          src="/message_box.png"
+          width={36}
+          height={36}
+          alt=""
+        />
+      </Link>
       <div className={style.notification}>
         <div className={style.notification_icon}>
           <Image
