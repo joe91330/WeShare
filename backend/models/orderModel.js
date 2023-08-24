@@ -94,8 +94,8 @@ module.exports = {
             item.buyers_limit, item.num_of_buyers, item.title, item.image, item.introduction, item.cost, item.tag, item.item_location, DATE_FORMAT(item.created_at, "%Y-%m-%d %H:%i:%s") AS item_created_at, user.id, user.name, user.phone, user.image, user.rating \
             FROM order_table \
             ${userCondition} \
-            LEFT JOIN item ON order_table.item_id = item.id ${itemCondition}\
-            WHERE ${buyerCondition} ${sellerCondition}\
+            LEFT JOIN item ON order_table.item_id = item.id \
+            WHERE ${buyerCondition} ${sellerCondition} ${itemCondition}\
             ORDER BY order_table.id DESC`
             const [results] = await db.query(sql, []);
             let orders = [];
