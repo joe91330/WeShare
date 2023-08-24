@@ -25,7 +25,7 @@ jobs:
         docker ps
         docker exec weshare npm test --detectOpenHandles --watch=false --force-exit --maxWorkers=1
 
-  deploy_canchu:
+  deploy_weshare:
     needs: test_weshare
     runs-on: ubuntu-latest
     steps:
