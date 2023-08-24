@@ -58,6 +58,7 @@ module.exports = {
     },
 
     getBuyItems: async (req, res) => {
+        console.log('getBuyItems')
         const user_id = req.user.id;
         const item = await itemModel.getBuyItems(res, user_id);
         return res.status(200).json({ data: { items: item }});
