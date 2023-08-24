@@ -89,7 +89,7 @@ module.exports = {
                 itemCondition = `AND item.num_of_buyers = 0`
                 userCondition =  `LEFT JOIN user ON order_table.buyer_id = user.id`
             }
-            const sql = `SELECT order_table.id, order_table.item_id, order_table.quantity, order_table.seller_id, order_table.buyer_id, order_table.status, DATE_FORMAT(order_table.created_at, "%Y-%m-%d %H:%i:%s") AS created_at  \
+            const sql = `SELECT order_table.id, order_table.item_id, order_table.quantity, order_table.seller_id, order_table.buyer_id, order_table.status, DATE_FORMAT(order_table.created_at, "%Y-%m-%d %H:%i:%s") AS created_at,  \
             item.buyers_limit, item.num_of_buyers, item.title, item.image, item.introduction, item.cost, item.tag, item.item_location, DATE_FORMAT(item.created_at, "%Y-%m-%d %H:%i:%s") AS item_created_at, user.id, user.name, user.phone, user.image, user.rating \
             FROM order_table \
             ${userCondition} \

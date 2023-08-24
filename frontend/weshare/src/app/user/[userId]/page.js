@@ -1,8 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
 
 "use client";
 
-import  { useState } from "react";
+import { useState, useEffect } from "react";
+import ReactLoading from "react-loading";
 import Navbar from "../../../../Components/navbar";
 import Profile from "../../../../Components/profile";
 import Itemcard from "../../../../Components/Itemcard";
@@ -10,22 +13,24 @@ import useGetProfile from "../../../../hooks/user/useGetProfile";
 import "./userpage.css";
 
 export default function UserProfile({ params }) {
-  const { userId } =params;
-  const { user, isLoading } = useGetProfile(userId);
+  const { userId } = params;
+  const { user, isLoading, mutateData } = useGetProfile(userId);
   const [isActive, setActive] = useState(false);
   const toggleActive = () => {
     setActive((prevState) => !prevState);
   };
   if (isLoading) {
-    return <p>Loading...</p>; // Or some loading spinner/component
+    <ReactLoading color="#2D6047" />;
   }
-
+  useEffect(() => {
+    mutateData(); // 當 userId 改變時調用 mutateData
+  }, [userId, mutateData,user.item.buyers_limit]);
   return (
     <div>
       <Navbar />
       <div className="mainblock">
         <div className="profileblock">
-          <Profile params={userId}/>
+          <Profile params={userId} />
         </div>
         <div className="rightblock">
           <div
@@ -36,20 +41,25 @@ export default function UserProfile({ params }) {
             role="button"
           >
             <div className="slider" />
-            <span className="toggle-text sell-text">Sell</span>
             <span className="toggle-text buy-text">Buy</span>
+            <span className="toggle-text sell-text">Sell</span>
           </div>
         </div>
         <div className="itemplace">
-        {user.item.map((item) => (
-            <Itemcard
-              key={item.id}
-              image={item.image}
-              title={item.title}
-              cost={item.cost}
-              id={item.id}
-            />
-          ))}
+          {user?.item.map(
+            (
+              item // 使用安全的選擇運算符來確保 user 存在
+            ) => (
+              <Itemcard
+                key={item.id}
+                image={item.image}
+                title={item.title}
+                cost={item.cost}
+                id={item.id}
+                isSoldOut={item.num_of_buyers === 0}
+              />
+            )
+          )}
         </div>
       </div>
     </div>

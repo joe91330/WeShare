@@ -30,7 +30,7 @@ function useGiveRating() {
       if (!res.ok) {
         throw new Error(data.message || "Failed to give rating.");
       }
-      if (response.status === 200) {
+      if (res.status === 200) {
         Swal.fire("成功!", "謝謝您的評分!", "success");
       }
       setResponse(data);
