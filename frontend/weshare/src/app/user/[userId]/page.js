@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
@@ -10,11 +11,13 @@ import Navbar from "../../../../Components/navbar";
 import Profile from "../../../../Components/profile";
 import Itemcard from "../../../../Components/Itemcard";
 import useGetProfile from "../../../../hooks/user/useGetProfile";
+import useGetBuyItem from "../../../../hooks/Item/useGetBuyItem";
 import "./userpage.css";
 
 export default function UserProfile({ params }) {
   const { userId } = params;
   const { user, isLoading, mutateData } = useGetProfile(userId);
+  const { data, isLoading1 } = useGetBuyItem();
   const [isActive, setActive] = useState(false);
   const toggleActive = () => {
     setActive((prevState) => !prevState);
@@ -24,7 +27,9 @@ export default function UserProfile({ params }) {
   }
   useEffect(() => {
     mutateData(); // 當 userId 改變時調用 mutateData
-  }, [userId, mutateData,user.item.buyers_limit]);
+  }, [userId, mutateData]);
+  const itemsToDisplay = isActive ? data?.items : user?.item;
+console.log(data)
   return (
     <div>
       <Navbar />
@@ -41,15 +46,13 @@ export default function UserProfile({ params }) {
             role="button"
           >
             <div className="slider" />
-            <span className="toggle-text buy-text">Buy</span>
-            <span className="toggle-text sell-text">Sell</span>
+            <span className="toggle-text buy-text">Sell</span>
+            <span className="toggle-text sell-text">Buy</span>
           </div>
         </div>
         <div className="itemplace">
-          {user?.item.map(
-            (
-              item // 使用安全的選擇運算符來確保 user 存在
-            ) => (
+          {itemsToDisplay &&
+            itemsToDisplay.map((item) => (
               <Itemcard
                 key={item.id}
                 image={item.image}
@@ -58,8 +61,7 @@ export default function UserProfile({ params }) {
                 id={item.id}
                 isSoldOut={item.num_of_buyers === 0}
               />
-            )
-          )}
+            ))}
         </div>
       </div>
     </div>

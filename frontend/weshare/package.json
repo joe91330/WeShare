@@ -27,6 +27,7 @@
     "ai": "^2.1.32",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
+    "bufferutil": "^4.0.7",
     "commitizen": "^4.3.0",
     "cookies": "^0.8.0",
     "dotenv": "^16.3.1",
@@ -63,6 +64,7 @@
     "sweetalert2": "^11.7.27",
     "swr": "^2.2.1",
     "use-places-autocomplete": "^4.0.1",
+    "utf-8-validate": "^5.0.10",
     "uuidv4": "^6.2.13",
     "ws": "^8.13.0",
     "yup": "^1.2.0"
