@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { parseCookies } from "nookies";
@@ -16,7 +17,6 @@ const useGetMessages = (userid) => {
   const [error, setError] = useState(null);
   const [socket, setSocket] = useState(null);
   const [nextTenMessagesCursor, setnextTenMessagesCursor] = useState("");
-  const [isFetchingMessages, setIsFetchingMessages] = useState(false);
 
   useEffect(() => {
     (async () => {
