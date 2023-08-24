@@ -16,7 +16,6 @@ const useGetMessages = (userid) => {
   const [error, setError] = useState(null);
   const [socket, setSocket] = useState(null);
   const [nextTenMessagesCursor, setnextTenMessagesCursor] = useState("");
-  const [isFetchingMessages, setIsFetchingMessages] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -58,7 +57,6 @@ const useGetMessages = (userid) => {
       // 連接成功後，向伺服器端發送加入房間的請求
     });
     newSocket.emit("test", `chat${roomName}`);
-    // newSocket.emit( `chat${roomName}`);
 
     // 接收伺服器端傳來的訊息
     newSocket.on("response", (messageData) => {
