@@ -8,9 +8,11 @@
 import { useState, useRef } from "react";
 import Swal from "sweetalert2";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import styles from "../styles/createObject.module.scss";
 import useGeoCoder from "../hooks/map/useGeoCoder";
-import useCreateItem from "../hooks/item/useCreateItem";
+import useCreateItem from "../hooks/Item/useCreateItem";
 import useCreateItemImage from "../hooks/Item/useCreateItemImage";
 
 export default function CreateObject() {
@@ -24,7 +26,9 @@ export default function CreateObject() {
   const [location, setLocation] = useState("");
   const [cost, setCost] = useState("");
   const [number, setNumber] = useState("");
-
+  const [tempImageUrl, setTempImageUrl] = useState("");
+  const authorId = Cookies.get("userId");
+  const router = useRouter();
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -39,6 +43,7 @@ export default function CreateObject() {
         );
         return;
       }
+      setTempImageUrl(URL.createObjectURL(file)); // 這裡改成設定臨時的URL
       await uploadImage(file);
     }
   };
@@ -63,7 +68,9 @@ export default function CreateObject() {
     };
 
     createItem(itemData);
-    console.log(imageUrl);
+    if(success){
+      router.push(`/user/${authorId}`);
+    }
   };
   return (
     <div className={styles.wholePage}>
@@ -110,18 +117,17 @@ export default function CreateObject() {
           className={styles.uploadPic}
           onClick={() => inputRef.current?.click()}
         >
-          {imageUrl && (
-            <div className={styles.uploadedImageContainer}>
-              <Image
-                src={imageUrl.startsWith("/") ? imageUrl : `/${imageUrl}`}
-                alt="Uploaded Item"
-                className={styles.uploadPic}
-                width={55}
-                height={55}
-              />
-            </div>
+          {imageUrl ? (
+            <Image
+              src={tempImageUrl}
+              alt="Uploaded Item"
+              className={styles.uploadPic1}
+              width={250}
+              height={200}
+            />
+          ) : (
+            "上傳圖片"
           )}
-          上傳圖片
         </div>
       </div>
       <div className={styles.loactionAndPrice}>

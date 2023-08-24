@@ -29,14 +29,13 @@ const mapStyle = {
 export default function Map({
   itemLocations,
   onMapClick,
-  selectedItemId,
   hoveredItemId,
+  focusedLocation,
 }) {
   const [location, setLocation] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
   const center = useMemo(() => location, [location]);
   const [zoom, setZoom] = useState(12);
-  const [focusedLocation, setFocusedLocation] = useState(null);
   const [useCustomStyle, setUseCustomStyle] = useState(true);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
@@ -53,27 +52,25 @@ export default function Map({
           lng: position.coords.longitude,
         };
         setLocation(userLocation);
-        
+
         // 將經緯度存到 cookie 中
         Cookie.set("userLocation", JSON.stringify(userLocation));
-  
-        // Set the focused location to user's current location
-        setFocusedLocation(userLocation);
-  
-        // Set the zoom level to desired zoom (e.g., 16)
+
         setZoom(16);
-        
       });
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
-    
   }, []);
 
   const handleMapClick = () => {
     if (onMapClick) onMapClick();
   };
-
+  useEffect(() => {
+    if (focusedLocation) {
+      setZoom(12);  // 這是放大的等級，您可以根據需要調整。
+    }
+  }, [focusedLocation]);
   if (!isLoaded) return <Skeleton style={mapStyle} />;
   return (
     <>
@@ -104,12 +101,20 @@ export default function Map({
               position={location}
               options={{ pixelOffset: new window.google.maps.Size(0, -40) }}
             >
-              
               <div className={styles.infoWindow}>
                 <p>您的位置</p>
               </div>
             </InfoWindow>
           </>
+        )}
+        {focusedLocation && (
+          <Marker
+            position={focusedLocation}
+            icon={{
+              url: "/placeholder.png", 
+              scaledSize: { width: 40, height: 40 },
+            }}
+          />
         )}
         {itemLocations.map((loc) => (
           <>
@@ -118,7 +123,6 @@ export default function Map({
               key={loc.id}
               position={{ lat: loc.lat, lng: loc.lng }}
               onClick={() => {
-                setFocusedLocation(loc);
                 setShowInfo(true);
               }}
             />

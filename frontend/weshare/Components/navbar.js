@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -18,7 +19,7 @@ import useGetEvents from "../hooks/useGetEvent";
 import style from "../styles/navbar.module.scss";
 import "react-loading-skeleton/dist/skeleton.css";
 
-export default function Navbar() {
+export default function Navbar({ onFilterChange, onSearchChange }) {
   const [userId, setUserId] = useState(null);
   const router = useRouter();
   const { user, isLoading } = useGetProfile(userId);
@@ -33,25 +34,45 @@ export default function Navbar() {
   const userName = user?.name ?? "";
   const userImage = user?.image ?? "/2.png";
   const userImage2 = user?.image ?? "/個人照片.png";
+  const handleFilterChange = (e) => {
+    if (onFilterChange) {
+      onFilterChange(e.target.value);
+    }
+  };
+  const handleInputChange = (e) => {
+    if (onSearchChange) {
+      onSearchChange(e.target.value); // 通知父組件搜尋值已更改
+    }
+  };
   useEffect(() => {
     setUserId(Cookies.get("userId"));
   }, []);
   const handleLogout = () => {
-    Cookies.remove("token");
+    Cookies.remove("accessToken");
     router.push("/login"); // 導向登入頁面或其他目標頁面
   };
+  useEffect(() => {
+    if (Array.isArray(events)) {
+      const unreadEventsCount = events.filter(
+        (event) => event.is_read === 0
+      ).length;
+      setNotificationCount(unreadEventsCount);
+    }
+  }, [events]);
   return (
     <header className={style.border}>
-      <Link href="/">
+      <Link className={style.Link} href="/">
         <Image
           className={style.logo}
           src="/logo.png"
           width={100}
           height={100}
-          alt=""
+          alt="logo"
         />
       </Link>
-      <div className={style.weshare}>We Share</div>
+      <Link className={style.Link} href="/">
+        <div className={style.weshare}>We Share</div>
+      </Link>
       <div>
         <div className={style.search_bar}>
           <Image
@@ -63,12 +84,11 @@ export default function Navbar() {
           />
           <input
             type="text"
-            // value={enterSearch}
             placeholder="搜尋"
             className={style.searching}
-            // onChange={handleInputChange}
+            onChange={handleInputChange}
           />
-          <select className={style.filter}>
+          <select className={style.filter} onChange={handleFilterChange}>
             <option value="">類型</option>
             <option value="食品">食品</option>
             <option value="日用品">日用品</option>
@@ -132,7 +152,9 @@ export default function Navbar() {
                 </button>
               )}
           </div>
-          <div className={style.is_readcircle}>{notificationCount}</div>
+          {notificationCount > 0 && (
+            <div className={style.is_readcircle}>{notificationCount}</div>
+          )}
         </div>
       </div>
       <div className={style.profilepic}>
@@ -165,7 +187,7 @@ export default function Navbar() {
             <p className={style.yourname}>{userName}</p>
           </div>
           <div className={style.div2}>
-            <Link href={`/user/${userId}`} style={{ textDecoration: "none" }}>
+            <Link className={style.Link} href={`/user/${userId}`}>
               <div className={style.hovertit}>查看個人檔案</div>
             </Link>
             <div className={style.line} />

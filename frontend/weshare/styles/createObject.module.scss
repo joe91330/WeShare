@@ -106,14 +106,15 @@ textarea {
     border-radius: 25px;
     border: $primary-border;
     background: $background-color;
-    width: 20%;
-    height: 28vh;
+    width: 250px;
+    height: 200px;
     margin-left: auto;
     color: $primary-color;
     font-family: $primary-font;
     font-size: $primary-font-size;
     line-height: $primary-font-size;
     cursor: pointer;
+    object-fit: cover;
     &:hover {
       background: $hover-background;
       transform: scale(1.05); // 稍微放大元素
@@ -121,6 +122,11 @@ textarea {
 
     &:active {
       transform: scale(0.95); // 當按下時，稍微縮小元素
+    }
+    .uploadPic1{
+      border-radius: 25px;
+      cursor: pointer;
+      object-fit: cover;
     }
   }
 }

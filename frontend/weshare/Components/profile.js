@@ -29,7 +29,6 @@ export default function Profile({ params }) {
   const userImage = user?.image ?? "/2.png";
   const fileInputRef = useRef(null);
   const { mutate } = useSWRConfig();
-
   const handleAvatarClick = () => {
     fileInputRef.current.click();
   };
@@ -98,14 +97,14 @@ export default function Profile({ params }) {
       <div className={styles.rate_num}>
         <Image src="/star.png" width={22} height={22} alt="" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        {userRating}/5
+        {userRating && userRating !== 0 ? `${userRating}/5` : "尚無評價"}
       </div>
       <div className={styles.twobtn}>
         <button type="button" className={styles.connectbtn}>
           聯絡買家
         </button>
         <button type="button" className={styles.commentbtn}>
-          客戶評價
+          歷史訂單
         </button>
       </div>
     </div>

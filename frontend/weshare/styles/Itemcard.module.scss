@@ -5,6 +5,15 @@
     flex-shrink: 0;
     border-radius: 1.25rem;
     background: #FFF;
+    .done{
+        position: absolute;
+        z-index: 9;
+        background-color: brown;
+        color: #FFF;
+        padding: 5px;
+        border-radius: 10px;
+        font-family:'Noto Serif TC', serif;
+    }
     .ItemPic{
         width: 100%;
         height: 13.6875rem;

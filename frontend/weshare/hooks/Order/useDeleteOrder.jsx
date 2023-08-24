@@ -10,12 +10,12 @@ function useDeleteOrder() {
         setIsLoading(true);
         setError(null);
 
-        const url = `/orders/${orderId}`;
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/orders/${orderId}`;
         const options = {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                Authorize: `Bearer ${accessToken}`,
+                'Authorization': `Bearer ${accessToken}`,
             },
         };
 
