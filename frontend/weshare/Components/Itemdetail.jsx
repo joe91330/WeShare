@@ -145,7 +145,7 @@ export default function Itemdetail({ params }) {
             {/* 條件渲染按鈕 */}
             {`${itemSellerId}` !== authorId && (
               <div className={styles.twobtn}>
-                <Link className={styles.Link} href={`/chat/${authorId }`}>
+                <Link className={styles.Link} href={`/chat/${itemSellerId }`}>
                   <button type="button" className={styles.btn}>
                     聯絡買家
                   </button>
