@@ -13,7 +13,6 @@ import Swal from "sweetalert2";
 import useSWR, { useSWRConfig ,mutate as swrMutate} from "swr";
 import Skeleton from "react-loading-skeleton";
 import useGetProfile from "../hooks/user/useGetProfile";
-import useGetOrder from "../hooks/Order/useGetOrder";
 import useUpdateProfile from "../hooks/user/useUpdateProfile";
 import styles from "../styles/profile.module.scss";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -30,7 +29,6 @@ export default function Profile({ params }) {
   const userImage = user?.image ?? "/2.png";
   const fileInputRef = useRef(null);
   const { mutate } = useSWRConfig();
-
   const handleAvatarClick = () => {
     fileInputRef.current.click();
   };

@@ -48,6 +48,8 @@ export default function Home() {
   const { items, isLoading, error } = useGetAllItems({
     keyword: searchValue,
     tag: selectedFilter,
+    latitude: focusedLocation?.lat,
+    longitude: focusedLocation?.lng
   });
   useEffect(() => {
     if (items) {
@@ -106,6 +108,7 @@ export default function Home() {
                 title={item.title}
                 cost={item.cost}
                 id={item.id}
+                isSoldOut={item.num_of_buyers === 0}
                 onPicClick={focusOnItem}
                 onMouseOver={() => {
                   setHoveredItemId(item.id);

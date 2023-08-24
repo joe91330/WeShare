@@ -8,8 +8,8 @@ const useGetAllItems = ({
   cursor = null,
   keyword = null,
   tag = null,
-  latitude = userLocation.latitude || null, // 如果未提供經度，則使用Cookie中的數據
-  longitude = userLocation.longitude || null // 如果未提供緯度，則使用Cookie中的數據
+  latitude = userLocation.latitude,  
+  longitude = userLocation.longitude  
 } = {}) => {
   // 設定基礎 URL
   const baseURL = `${process.env.NEXT_PUBLIC_API_URL}/items`;

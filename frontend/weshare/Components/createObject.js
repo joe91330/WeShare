@@ -8,6 +8,8 @@
 import { useState, useRef } from "react";
 import Swal from "sweetalert2";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import styles from "../styles/createObject.module.scss";
 import useGeoCoder from "../hooks/map/useGeoCoder";
 import useCreateItem from "../hooks/Item/useCreateItem";
@@ -25,6 +27,8 @@ export default function CreateObject() {
   const [cost, setCost] = useState("");
   const [number, setNumber] = useState("");
   const [tempImageUrl, setTempImageUrl] = useState("");
+  const authorId = Cookies.get("userId");
+  const router = useRouter();
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -64,6 +68,9 @@ export default function CreateObject() {
     };
 
     createItem(itemData);
+    if(success){
+      router.push(`/user/${authorId}`);
+    }
   };
   return (
     <div className={styles.wholePage}>
