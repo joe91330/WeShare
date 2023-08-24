@@ -35,7 +35,7 @@ module.exports = {
         try {
             userCondition = ''
             if (buyer) {
-                userCondition = `LEFT JOIN user ON order_table.buyer_id = user.id'`;
+                userCondition = `LEFT JOIN user ON order_table.buyer_id = user.id`;
             }
             if (seller) {
                 userCondition = `LEFT JOIN user ON order_table.seller_id = user.id`;
@@ -43,8 +43,8 @@ module.exports = {
             const sql = `SELECT order_table.id, order_table.quantity, order_table.seller_id, order_table.buyer_id, order_table.status, DATE_FORMAT(order_table.created_at, "%Y-%m-%d %H:%i:%s") AS created_at, user.id AS user_id, user.name, user.phone, user.image, user.rating \
             FROM order_table \
             ${userCondition} \
-            WHERE item_id = ?\
-            ORDER BY order_table.id DESC`
+            WHERE item_id = ? \
+            ORDER BY order_table.id DESC`;
             const [[results]] = await db.query(sql, [item_id]);
             if(results.length == 0){
                 return [];
