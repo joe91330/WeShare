@@ -1,6 +1,8 @@
 // hooks/useSignUp.js
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 
 const useSignUp = () => {
   const [error, setError] = useState(null);
@@ -14,7 +16,7 @@ const useSignUp = () => {
         {
           name,
           phone,
-          password
+          password,
         }
       );
 
@@ -22,13 +24,19 @@ const useSignUp = () => {
       if (response.status === 200) {
         // logIn(email, password); // cancel this feature
         setIsRegisterPage(false);
-        await alert("註冊成功");
+        // 顯示 SweetAlert 彈出視窗
+        Swal.fire({
+          title: "註冊成功",
+          text: "恭喜您已成功註冊帳號！",
+          icon: "success",
+          confirmButtonText: "確定",
+        });
       }
 
       // 清除錯誤訊息
       setError(null);
     } catch (err) {
-    //   setError(err.response.data.message || "註冊失敗");
+      //   setError(err.response.data.message || "註冊失敗");
     }
   };
 

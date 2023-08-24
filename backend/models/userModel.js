@@ -4,15 +4,16 @@ const { db } = require('../utils/util');
 
 module.exports = {
 
-    signup: async ( res, name, phone, password ) => {
+    signup: async ( res, name, phone, password, imageURL ) => {
         try {
             const hashPwd = bcrypt.hashSync(password, 10);
-            const sql = "INSERT INTO user (name, phone, password) VALUES (?,?,?)"
-            const [results] = await db.query(sql, [name,phone,hashPwd])
+            const sql = "INSERT INTO user (name, phone, password, image) VALUES (?,?,?,?)"
+            const [results] = await db.query(sql, [name,phone,hashPwd,imageURL])
             const user = {
                 id: results.insertId, 
                 name: name, 
                 phone: phone, 
+		image: imageURL
             };
             const data = {
                 access_token: util.generateToken(user),
@@ -71,10 +72,10 @@ module.exports = {
         }
     },
 
-    updateProfile: async ( res, id, name, image ) => {
+    updateProfileName: async ( res, id, name ) => {
         try {
-            const sql = "UPDATE user SET name = ?, image = ? WHERE id = ?"
-            await db.query(sql, [name,image,id]);
+            const sql = "UPDATE user SET name = ? WHERE id = ?"
+            await db.query(sql, [name,id]);
             const data = {
                 user: { id: id }
             }
@@ -84,17 +85,39 @@ module.exports = {
         }
     },
 
+    updateProfilePic:  async ( res, id, image ) => {
+        try {
+            const sql = "UPDATE user SET image = ? WHERE id = ?"
+            await db.query(sql, [image,id]);
+            const data = {
+                user: { 
+                    id: id,
+                    image: image
+                }
+            }
+            return data
+        } catch (err) {
+            return util.databaseError(err,'getUser',res);
+        }
+    },
+
     getUserInfo: async ( res, user_ID ) => {
         try {
-            const sql = `SELECT name, image, rating FROM user WHERE id = ?`
+            const sql = `
+                SELECT name, image, phone, rating 
+                FROM user 
+                WHERE id = ?
+            `
             const [[results]] = await db.query(sql, [user_ID]);
             const data = {
                 user: {
                     id: user_ID,
                     name: results.name,
                     image: results.image,
+		            phone: results.phone,
                     rating: results.rating,
-                    item: []
+                    item: [],
+                    fans: []
                 }
             }
             return data
@@ -105,17 +128,21 @@ module.exports = {
 
     getUserItem: async ( res, user_ID ) => {
         try {
-            const sql = `SELECT id, title, image, cost, tag, expires_at FROM item WHERE seller_id = ?`
+            const sql = `
+                SELECT id, title, image, cost, tag 
+                FROM item 
+                WHERE seller_id = ?
+                ORDER BY id DESC
+            `
             const [results] = await db.query(sql, [user_ID]);
             const itemList = results.map((result) => {
-                const { id, title, image, cost, tag, expires_at } = result
+                const { id, title, image, cost, tag } = result
                 return {
                     id: id,
                     title : title,
                     image: image,
                     cost: cost,
-                    tag: tag,
-                    expires_at: expires_at
+                    tag: tag
                 };
             })
             return itemList
@@ -124,13 +151,42 @@ module.exports = {
         }
     },
 
+    getUserFan: async ( res, user_ID ) => {
+        try {
+            const sql = `
+                SELECT f.id, u.id AS user_id, u.name, u.image
+                FROM fan AS f LEFT JOIN user AS u
+                ON f.befollow_id = u.id
+                WHERE f.follow_id = ?
+                ORDER BY f.id DESC
+            `
+            const [results] = await db.query(sql, [user_ID]);
+            const fanList = results.map((result) => {
+                const { id, user_id, name, image } = result
+                return {
+                    id: id,
+                    user: {
+                        id: user_id,
+                        name: name,
+                        image: image
+                    }
+                };
+            })
+            return fanList
+        } catch (err) {
+            return util.databaseError(err,'getUserFan',res);
+        }
+    },
+
     addTest:  async ( res ) => {
         try {
             for ( var i = 1 ; i <= 11 ; i++ ){
                 const sql = `INSERT INTO user (name, phone, password) VALUES (?,?,?)`
+                const phoneNum = util.generateRandomNum(10)
+                console.log("新增用戶：","user" + i.toString(),phoneNum)
                 await db.query(sql, [
                     "user" + i.toString(),
-                    util.generateRandomNum(10),
+                    phoneNum,
                     "pwd"
                 ]);
             }
@@ -146,8 +202,8 @@ module.exports = {
             const [results] = await db.query(sql, [sender_id,receiver_id,rating]);
             const data = {
                 rating: {
-		    id: results.insertId
-		}
+                    id: results.insertId
+                }
             }
             return data;
         } catch (err) {

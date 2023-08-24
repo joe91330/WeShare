@@ -91,6 +91,7 @@ $common-font: 'Noto Serif TC', serif;
         font-size: 1rem;
         font-style: normal;
         line-height: 2rem;
+        
         .title{
             display: flex;
             flex-direction: row;
@@ -147,6 +148,10 @@ $common-font: 'Noto Serif TC', serif;
             fill:  lightgray 50% / cover no-repeat;
             margin-right: 1rem;
             object-fit: cover;
+        }
+        .Link{
+            color: #FFF;
+            text-decoration: none;
         }
         .sellerphone{
             margin-top: 0.5rem;

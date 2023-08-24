@@ -18,13 +18,6 @@ module.exports = {
         const result = await chatModel.getMessagePreview(res,my_ID,decode_cursor);
         return res.status(200).json({ data: result }); 
     },
-    sendMessage: async (req, res) => {
-        const sender_id = req.user.id
-        const receiver_id = req.params.id
-        const { message } = req.body
-        const result = await chatModel.sendMessage(res,sender_id,receiver_id,message)
-        return res.status(200).json({ data: result })
-    },
     addTest: async (req,res) => {
         const result = await chatModel.addTest(res)
         return res.status(200).json({ data: result })

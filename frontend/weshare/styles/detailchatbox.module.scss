@@ -7,15 +7,26 @@
   width: 60vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
 
-  
   .chatboxTitle {
     display: flex;
     align-items: center;
     margin: 1rem 3rem 1rem 3rem;
     border-bottom: 2px solid rgb(161, 161, 161);
     padding-bottom: 10px;
+    .picFrame {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
     .chatboxName {
       color: #000;
       font-family: Permanent Marker;
@@ -24,6 +35,23 @@
       font-weight: 400;
       line-height: 24px;
       margin-left: 2rem;
+    }
+    .chatboxLink {
+      margin-left: auto;
+      display: inline-block;
+      background-color: #2b692d; /* 绿色调 */
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .chatboxLink:hover {
+      background-color: #45a049; 
+      transform: translateY(-2px);
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5); 
     }
   }
   .chatMessages {
@@ -34,20 +62,20 @@
       align-items: center;
       justify-content: flex-start;
       margin: 10px;
-      
+
       .messageText {
         margin: 10px;
         border-radius: 25px;
         border: 2px solid rgb(161, 161, 161);
         background: #fff;
         padding: 5px 15px 5px 15px;
-        
+
         color: #000;
         font-family: Permanent Marker;
         font-size: 20px;
         font-style: normal;
         font-weight: 400;
-        line-height: 24px; 
+        line-height: 24px;
       }
     }
     .chatMessageRight {
@@ -55,30 +83,31 @@
       align-items: center;
       justify-content: flex-end;
       margin: 10px;
-      
+
       .messageText {
         margin: 10px;
         border-radius: 25px;
         border: 2px solid rgb(161, 161, 161);
         background: #fff;
         padding: 5px 15px 5px 15px;
-        
+
         color: #000;
         font-family: Permanent Marker;
         font-size: 20px;
         font-style: normal;
         font-weight: 400;
-        line-height: 24px; 
+        line-height: 24px;
       }
     }
   }
-  .horzontal_line{
+  .horzontal_line {
+    margin-top: auto;
     border: 1px solid rgb(161, 161, 161);
   }
   .sendMessageOutBorder {
     display: flex;
     justify-content: center;
-    
+
     .sendMessage {
       border-radius: 25px;
       border: 2px solid rgb(161, 161, 161);

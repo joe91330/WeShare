@@ -8,7 +8,7 @@ CREATE DATABASE IF NOT EXISTS weshare_test CHARACTER SET utf8mb4 COLLATE utf8mb4
 use weshare;
 
 -- Set the timezone
-SET time_zone = '+8:00';
+SET GLOBAL time_zone = '+8:00';
 
 -- Create the 'user' table if it doesn't exist
 CREATE TABLE IF NOT EXISTS user (
@@ -20,6 +20,15 @@ CREATE TABLE IF NOT EXISTS user (
     image VARCHAR(255),
     phone VARCHAR(255) NOT NULL UNIQUE
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; 
+
+-- Create the 'follow' table if it doesn't exist
+CREATE TABLE IF NOT EXISTS fan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    follow_id INT NOT NULL,
+    befollow_id INT NOT NULL,
+    CONSTRAINT follow_id_key FOREIGN KEY (follow_id) REFERENCES user(id) ON DELETE CASCADE,
+    CONSTRAINT befollow_id_key FOREIGN KEY (befollow_id) REFERENCES user(id) ON DELETE CASCADE
+); 
 
 -- Create the 'item_tag' ENUM type if it doesn't exist
 CREATE TABLE IF NOT EXISTS item (
@@ -50,7 +59,7 @@ CREATE TABLE IF NOT EXISTS order_table (
     buyer_id INT NOT NULL,
     status ENUM('request', 'agree') NOT NULL,
     CONSTRAINT order_item_id_key FOREIGN KEY (item_id) REFERENCES item(id) ON DELETE CASCADE,
-    CONSTRAINT order_seller_id_key FOREIGN KEY (seller_id) REFERENCES item(seller_id) ON DELETE CASCADE,
+    CONSTRAINT order_seller_id_key FOREIGN KEY (seller_id) REFERENCES user(id) ON DELETE CASCADE,
     CONSTRAINT order_buyer_id_key FOREIGN KEY (buyer_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
@@ -58,9 +67,13 @@ CREATE TABLE IF NOT EXISTS order_table (
 CREATE TABLE IF NOT EXISTS event_table (
     id INT AUTO_INCREMENT PRIMARY KEY,
     type ENUM('買家下單通知', '交易成功通知') NOT NULL,
+    order_id INT NOT NULL,
     item_id INT,
     sender_id INT NOT NULL,
     recipient_id INT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT event_order_id_key FOREIGN KEY (order_id) REFERENCES order_table(id) ON DELETE CASCADE,
     CONSTRAINT event_item_id_key FOREIGN KEY (item_id) REFERENCES item(id) ON DELETE CASCADE,
     CONSTRAINT event_sender_id_key FOREIGN KEY (sender_id) REFERENCES user(id) ON DELETE CASCADE,
     CONSTRAINT event_recipient_id_key FOREIGN KEY (recipient_id) REFERENCES user(id) ON DELETE CASCADE
@@ -89,6 +102,7 @@ CREATE TABLE IF NOT EXISTS rating (
 use weshare_test;
 
 CREATE TABLE weshare_test.user LIKE weshare.user;
+CREATE TABLE weshare_test.fan LIKE weshare.fan;
 CREATE TABLE weshare_test.item LIKE weshare.item;
 CREATE TABLE weshare_test.order_table LIKE weshare.order_table;
 CREATE TABLE weshare_test.event_table LIKE weshare.event_table;

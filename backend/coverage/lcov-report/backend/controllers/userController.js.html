@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">10.41% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/39</span>
+                <span class='fraction'>5/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/15</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">10.41% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/39</span>
+                <span class='fraction'>5/48</span>
             </div>
         
             
@@ -125,7 +125,19 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -143,26 +155,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,43 +209,53 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const userModel = require('../models/userModel')
 const util = require('../utils/util')
+const fs = require('fs');
+require('dotenv').config();
 &nbsp;
 module.exports = {
     signin: <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
-        const { email, password } = <span class="cstat-no" title="statement not covered" >req.body;</span>
-<span class="cstat-no" title="statement not covered" >        if ( !email || !password ) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ error: 'Email and password are required' });</span>
+        const { phone, password } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+<span class="cstat-no" title="statement not covered" >        if ( !phone || !password ) {</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ error: 'Phone and password are required' });</span>
         }
         // 確認密碼跟信箱相符
-        const result = <span class="cstat-no" title="statement not covered" >await userModel.signin(res, email, password);</span>
+        const result = <span class="cstat-no" title="statement not covered" >await userModel.signin(res, phone, password);</span>
 <span class="cstat-no" title="statement not covered" >        if ( !result.user ) {</span>
 <span class="cstat-no" title="statement not covered" >            return res.status(403).json({ error: result }); </span>
         } else {
 <span class="cstat-no" title="statement not covered" >            return res.status(200).json({ data: result }); </span>
         }
     },
-    signup: async (req, res) =&gt; {
-        const { name, email, password } = req.body;
-        if ( !name || !email || !password ) {    
-            return res.status(400).json({ error: 'Missing required fields' });
+    signup: <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+        const { name, phone, password } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+<span class="cstat-no" title="statement not covered" >        if ( !name || !phone || !password ) {    </span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ error: 'Missing required fields' });</span>
         }
-        // 確認信箱格式正確
-        const isValidMail = util.emailValidate(email)
-        <span class="missing-if-branch" title="if path not taken" >I</span>if ( !isValidMail ) {
-<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ error: 'Email format is incorrect' });</span>
+        const existUser = <span class="cstat-no" title="statement not covered" >await userModel.findUser(res,phone);</span>
+<span class="cstat-no" title="statement not covered" >        if ( existUser ) {</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(403).json({ error: 'Phone already exists' });</span>
         }
-        // 確認信箱存在
-        const existUser = await userModel.findUser(res,email);
-        if ( existUser ) {
-            return res.status(403).json({ error: 'Email already exists' });
-        }
-        const result = await userModel.signup(res,name,email,password)
-        return res.status(200).json({ data: result })
+        const result = <span class="cstat-no" title="statement not covered" >await userModel.signup(res,name,phone,password)</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(200).json({ data: result })</span>
     },
-    updateProfile: <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+    updateProfileName: <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
         const my_ID = <span class="cstat-no" title="statement not covered" >req.user.id;</span>
-        const { name, image } = <span class="cstat-no" title="statement not covered" >req.body;</span>
-        const result = <span class="cstat-no" title="statement not covered" >await userModel.updateProfile(res,my_ID,name,image)</span>
+        const { name } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+        const result = <span class="cstat-no" title="statement not covered" >await userModel.updateProfileName(res,my_ID,name)</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(200).json({ data: result })</span>
+    },
+    updateProfilePic: <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+        const my_ID = <span class="cstat-no" title="statement not covered" >req.user.id;</span>
+        const image = <span class="cstat-no" title="statement not covered" >req.file;</span>
+	const file_name = <span class="cstat-no" title="statement not covered" >(req.file.originalname).split('.');</span>
+<span class="cstat-no" title="statement not covered" >        console.log(file_name)</span>
+        const pic_path = <span class="cstat-no" title="statement not covered" >`http://${process.env.ip}/static/user_${my_ID}`;</span>
+<span class="cstat-no" title="statement not covered" >        fs.rename(`static/${req.file.originalname}`, `static/user_${my_ID}`, <span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            if (err) {</span>
+<span class="cstat-no" title="statement not covered" >              console.error('重命名文件失敗:', err);</span>
+            }
+        });
+        const result = <span class="cstat-no" title="statement not covered" >await userModel.updateProfilePic(res,my_ID,pic_path)</span>
 <span class="cstat-no" title="statement not covered" >        return res.status(200).json({ data: result })</span>
     },
     getProfile: <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
@@ -256,7 +286,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-08-17T08:08:52.431Z
+                at 2023-08-22T05:13:58.435Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

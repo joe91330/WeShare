@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 require('dotenv').config();
 
 const db = mysql.createPool({
-    host: process.env.NODE_ENV === 'test' ? 'localhost' : 'mysql',
+    host: 'mysql',
     user: 'root',
     password: 'pwd',
     database: process.env.NODE_ENV === 'test' ? 'weshare_test' : 'weshare'

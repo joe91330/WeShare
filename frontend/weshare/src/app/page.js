@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-restricted-syntax */
@@ -12,7 +13,7 @@ import Navbar from "../../Components/navbar";
 import Map from "../../Components/Map";
 import Mapsearch from "../../Components/Mapsearch";
 import Itemcard from "../../Components/Itemcard";
-import useGetAllItems from "../../hooks/Item/useGetAllItem"; // 請確定這個路徑是正確的
+import useGetAllItems from "../../hooks/Item/useGetAllItem";
 
 const GEOCODING_ENDPOINT = "https://maps.googleapis.com/maps/api/geocode/json";
 function getLatLngFromAddress(address, apiKey) {
@@ -33,17 +34,23 @@ function getLatLngFromAddress(address, apiKey) {
 export default function Home() {
   const [itemAddress, setItemAddress] = useState(null);
   const [itemLocations, setItemLocations] = useState([]);
-  const [selectedItemId, setSelectedItemId] = useState(null);
-  const userLocationFromCookie = Cookie.get("userLocation")
-  ? JSON.parse(Cookie.get("userLocation"))
-  : null;
-console.log()
-const [focusedLocation, setFocusedLocation] = useState(userLocationFromCookie);
-  const [zoom, setZoom] = useState(0); // 初始化為12或您的初始放大值
+  const [selectedFilter, setSelectedFilter] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [focusedLocation, setFocusedLocation] = useState("");
   const [hoveredItemId, setHoveredItemId] = useState(null);
 
-  const { items, isLoading, error } = useGetAllItems();
-
+  const handleFilterChange = (value) => {
+    setSelectedFilter(value);
+  };
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
+  };
+  const { items, isLoading, error } = useGetAllItems({
+    keyword: searchValue,
+    tag: selectedFilter,
+    latitude: focusedLocation?.lat,
+    longitude: focusedLocation?.lng
+  });
   useEffect(() => {
     if (items) {
       const newLocations = items.map((item) => ({
@@ -54,11 +61,9 @@ const [focusedLocation, setFocusedLocation] = useState(userLocationFromCookie);
         cost: item.cost,
         image: item.image,
       }));
-      
+
       setItemLocations(newLocations);
-      
     }
-    
   }, [items]);
   const focusOnItem = (itemId) => {
     const focusedItem = itemLocations.find((item) => item.id === itemId);
@@ -70,21 +75,25 @@ const [focusedLocation, setFocusedLocation] = useState(userLocationFromCookie);
   const clearAddress = () => {
     setItemAddress(null);
   };
+  function handleLocationSelect(location) {
+    console.log("Selected location:", location);
+    setFocusedLocation(location);
+  }
 
   return (
     <div>
-      <Navbar />
+      <Navbar
+        onSearchChange={setSearchValue}
+        onFilterChange={setSelectedFilter}
+      />
       <div className="main">
         <div className="mapsearch">
-          <Mapsearch />
+          <Mapsearch onLocationSelect={handleLocationSelect} />
         </div>
         <Map
-          address={itemAddress}
           itemLocations={itemLocations}
           onMapClick={clearAddress}
-          selectedItemId={selectedItemId}
           focusedLocation={focusedLocation}
-          setZoom={setZoom}
           hoveredItemId={hoveredItemId}
         />
 
@@ -95,10 +104,11 @@ const [focusedLocation, setFocusedLocation] = useState(userLocationFromCookie);
             items.map((item) => (
               <Itemcard
                 key={item.id}
-                image={item.image || '/1.png'}
+                image={item.image || "/1.png"}
                 title={item.title}
                 cost={item.cost}
                 id={item.id}
+                isSoldOut={item.num_of_buyers === 0}
                 onPicClick={focusOnItem}
                 onMouseOver={() => {
                   setHoveredItemId(item.id);
