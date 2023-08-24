@@ -24,7 +24,7 @@ export default function UserProfile({ params }) {
   }
   useEffect(() => {
     mutateData(); // 當 userId 改變時調用 mutateData
-  }, [userId, mutateData,user.item.buyers_limit]);
+  }, [userId, mutateData]);
   return (
     <div>
       <Navbar />

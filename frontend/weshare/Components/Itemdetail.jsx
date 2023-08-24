@@ -145,9 +145,11 @@ export default function Itemdetail({ params }) {
             {/* 條件渲染按鈕 */}
             {`${itemSellerId}` !== authorId && (
               <div className={styles.twobtn}>
-                <button type="button" className={styles.btn}>
-                  聯絡買家
-                </button>
+                <Link className={styles.Link} href={`/chat/${authorId }`}>
+                  <button type="button" className={styles.btn}>
+                    聯絡買家
+                  </button>
+                </Link>
                 <button
                   type="button"
                   className={styles.btn}
@@ -159,9 +161,11 @@ export default function Itemdetail({ params }) {
             )}
             {`${itemSellerId}` === authorId && (
               <div className={styles.twobtn}>
-                <button type="button" className={styles.btn}>
-                  查看訂單
-                </button>
+                <Link className={styles.Link} href={`/ordermanage/${itemSellerId}`}>
+                  <button type="button" className={styles.btn}>
+                    查看訂單
+                  </button>
+                </Link>
               </div>
             )}
           </div>
