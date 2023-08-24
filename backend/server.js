@@ -6,7 +6,6 @@ const cors = require('cors');
 const http = require('http');
 const path = require('path');
 const jwt = require('jsonwebtoken')
-const fs = require('fs')
 const { db } = require('./utils/util');
 
 app.use(bodyParser.json());
@@ -95,9 +94,13 @@ io.on("connection", (socket) => {
   })
 });
 
-server.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-// io.listen(server); // 让 Socket.IO 监听现有的 HTTP 服务器
+if(process.env.NODE_ENV === 'test'){
+  io.listen(server); // 让 Socket.IO 监听现有的 HTTP 服务器
+}
+else{
+  server.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
+}
 
 module.exports = server;
