@@ -7,6 +7,18 @@
   display: flex;
   align-items: center;
   padding: 0.5rem 0rem 0.5rem 2rem;
+  margin-top: 2rem;
+
+  // 特效
+    background-color: #2b692d; /* 绿色调 */
+    color: white;
+    cursor: pointer;
+    transition:
+      background-color 0.3s,
+      transform 0.3s,
+      box-shadow 0.3s;
+
+
   .picFrame {
     position: relative;
     width: 50px;
@@ -25,7 +37,18 @@
     font-size: 1.5rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 1.5rem; /* 100% */
+    line-height: 1.5rem;
     padding-left: 1rem;
+    text-decoration: none;
+  }
+  .chatMessagePreview{
+    margin-left: 1rem;
+    color: #fff;
+    font-family: Permanent Marker;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem;
+    
   }
 }
