@@ -21,10 +21,6 @@
     &:hover {
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
     }
-    // &.active {
-    //   background-color: #2d6047;
-    //   border-color: #2d6047;
-    // }
     .toggleText {
       font-size: 14px;
       font-weight: bold;
@@ -88,9 +84,11 @@
         border: 1px solid #ddd;
       }
       th {
-        background-color: #f2f2f2;
+        background-color: #24b147;
       }
       td {
+        background-color: #f2f2f2;
+
         // 设置 flex-grow 来平均分布内容
         flex-grow: 1;
       }
