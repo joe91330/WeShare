@@ -87,7 +87,6 @@ export default function Profile({ params }) {
 
         <div className={styles.nameandfollow}>
           <div className={styles.name}> {userName} </div>
-          <div className={styles.follower}>Followers:</div>
           <div className={styles.line} />
         </div>
       </div>
