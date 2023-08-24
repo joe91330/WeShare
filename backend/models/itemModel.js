@@ -125,7 +125,7 @@ module.exports = {
                 locationCondition = `AND item.latitude BETWEEN ${latitude - range} AND ${latitude + range} AND item.longitude BETWEEN ${longitude - range} AND ${longitude + range}`;
             }
             const sql = `SELECT item.id, item.buyers_limit, item.num_of_buyers, item.title, item.image, item.introduction, item.cost, item.tag, item.item_location, item.latitude, item.longitude, DATE_FORMAT(item.created_at, "%Y-%m-%d %H:%i:%s") AS created_at, DATE_FORMAT(item.expires_at, "%Y-%m-%d %H:%i:%s") AS expires_at, item.seller_id, user.name, user.rating, user.image AS user_image, user.phone \
-                FROM item LEFT JOIN user ON item.seller_id = user.id\
+                FROM item LEFT JOIN user ON item.seller_id = user.id \
                 WHERE item.id <= ${item_id} ${keywordCondition} ${tagCondition} ${locationCondition}\
                 ORDER BY item.id DESC LIMIT ?`;
             const [results] = await db.query(sql, [limit]);
