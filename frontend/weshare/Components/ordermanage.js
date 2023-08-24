@@ -16,16 +16,7 @@ export default function Ordermanage() {
 
   return (
     <div className={styles.outborder}>
-      {/* <div
-        role="button"
-        tabIndex={0}
-        className={`${styles.outbutton} ${isActive ? styles.active : ""}`}
-        onClick={toggleActive}
-        onKeyUp={toggleActive}
-      >
-        <span className={styles.buyText}>Buy</span>
-        <span className={styles.sellText}>Sell</span>
-      </div> */}
+
       <div
         role="button"
         tabIndex={0}
@@ -64,14 +55,6 @@ export default function Ordermanage() {
             <th>賣家</th>
             <th>評分</th>
             <th>地點</th>
-          </tr>
-          <tr>
-            <td>USA</td>
-            <td>Washington D.C.</td>
-            <td>309 million</td>
-            <td>English</td>
-            <td>1.5</td>
-            <td>hi</td>
           </tr>
           {historyStatus
             ? buyHistory?.map((history) => (

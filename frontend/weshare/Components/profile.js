@@ -10,8 +10,9 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
-import useSWR, { useSWRConfig ,mutate as swrMutate} from "swr";
+import useSWR, { useSWRConfig, mutate as swrMutate } from "swr";
 import Skeleton from "react-loading-skeleton";
+import Link from "next/link";
 import useGetProfile from "../hooks/user/useGetProfile";
 import useUpdateProfile from "../hooks/user/useUpdateProfile";
 import styles from "../styles/profile.module.scss";
@@ -36,11 +37,11 @@ export default function Profile({ params }) {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
-  
+
     const isImageValid = [".png", ".jpg", ".jpeg"].some((ext) =>
       file.name.endsWith(ext)
     );
-  
+
     if (!isImageValid) {
       Swal.fire(
         "錯誤",
@@ -49,16 +50,16 @@ export default function Profile({ params }) {
       );
       return;
     }
-  
+
     try {
       const newImageUrl = await updateProfile(file);
       if (newImageUrl) {
         mutate(
           `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
           (data) => ({
-              ...data,
-              image: newImageUrl
-            }),
+            ...data,
+            image: newImageUrl,
+          })
         );
       }
     } catch {
@@ -102,8 +103,9 @@ export default function Profile({ params }) {
         <button type="button" className={styles.connectbtn}>
           聯絡買家
         </button>
+
         <button type="button" className={styles.commentbtn}>
-          歷史訂單
+          <Link href={`/ordermanage/${authorId}`}>歷史訂單</Link>
         </button>
       </div>
     </div>
