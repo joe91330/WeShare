@@ -6,6 +6,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import ReactLoading from "react-loading";
 import Navbar from "../../../../Components/navbar";
 import Profile from "../../../../Components/profile";
@@ -19,6 +20,8 @@ export default function UserProfile({ params }) {
   const { user, isLoading, mutateData } = useGetProfile(userId);
   const { data, isLoading1 } = useGetBuyItem();
   const [isActive, setActive] = useState(false);
+  const authorId = Cookies.get("userId");
+
   const toggleActive = () => {
     setActive((prevState) => !prevState);
   };
@@ -29,7 +32,7 @@ export default function UserProfile({ params }) {
     mutateData(); // 當 userId 改變時調用 mutateData
   }, [userId, mutateData]);
   const itemsToDisplay = isActive ? data?.items : user?.item;
-console.log(data)
+  console.log(data);
   return (
     <div>
       <Navbar />
@@ -37,19 +40,21 @@ console.log(data)
         <div className="profileblock">
           <Profile params={userId} />
         </div>
-        <div className="rightblock">
-          <div
-            className={`toggle-button ${isActive ? "active" : ""}`}
-            onClick={toggleActive}
-            onKeyUp={toggleActive}
-            tabIndex={0}
-            role="button"
-          >
-            <div className="slider" />
-            <span className="toggle-text buy-text">Sell</span>
-            <span className="toggle-text sell-text">Buy</span>
+        {userId === authorId && (
+          <div className="rightblock">
+            <div
+              className={`toggle-button ${isActive ? "active" : ""}`}
+              onClick={toggleActive}
+              onKeyUp={toggleActive}
+              tabIndex={0}
+              role="button"
+            >
+              <div className="slider" />
+              <span className="toggle-text buy-text">Sell</span>
+              <span className="toggle-text sell-text">Buy</span>
+            </div>
           </div>
-        </div>
+        )}
         <div className="itemplace">
           {itemsToDisplay &&
             itemsToDisplay.map((item) => (

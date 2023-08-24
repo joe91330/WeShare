@@ -101,12 +101,13 @@ export default function Profile({ params }) {
       </div>
       <div className={styles.twobtn}>
         <button type="button" className={styles.connectbtn}>
-          聯絡買家
+          <Link href={`/chat/${userId}`}>聯絡買家</Link>
         </button>
-
-        <button type="button" className={styles.commentbtn}>
-          <Link href={`/ordermanage/${authorId}`}>歷史訂單</Link>
-        </button>
+        {userId === authorId && (
+          <button type="button" className={styles.commentbtn}>
+            <Link href={`/ordermanage/${authorId}`}>歷史訂單</Link>
+          </button>
+        )}
       </div>
     </div>
   );
