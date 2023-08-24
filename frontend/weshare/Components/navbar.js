@@ -83,13 +83,15 @@ export default function Navbar() {
       <Link href="/share" className={style.share_post}>
         Share
       </Link>
-      <Image
-        className={style.message_box}
-        src="/message_box.png"
-        width={36}
-        height={36}
-        alt=""
-      />
+      <Link href={`/chat/${userId}`}>
+        <Image
+          className={style.message_box}
+          src="/message_box.png"
+          width={36}
+          height={36}
+          alt=""
+        />
+      </Link>
       <div className={style.notification}>
         <div className={style.notification_icon}>
           <Image
@@ -163,7 +165,7 @@ export default function Navbar() {
             <p className={style.yourname}>{userName}</p>
           </div>
           <div className={style.div2}>
-            <Link href={`/user/${userId}`}>
+            <Link href={`/user/${userId}`} style={{ textDecoration: "none" }}>
               <div className={style.hovertit}>查看個人檔案</div>
             </Link>
             <div className={style.line} />

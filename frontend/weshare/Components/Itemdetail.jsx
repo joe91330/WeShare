@@ -3,7 +3,8 @@
 /* eslint-disable react/prop-types */
 import Image from "next/image";
 import { useState } from "react";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import Link from "next/link";
 import useGetItem from "../hooks/Item/useGetItem";
 import useCreateOrder from "../hooks/Order/useCreateOrder";
 
@@ -20,25 +21,22 @@ export default function Itemdetail({ params }) {
   const itemtag = item?.tag ?? "";
   const itemLoaction = item?.location ?? "";
   const itemCreateat = item?.created_at ?? "";
+  const itemSellerID = item?.user.id ?? "";
   const itemSellerName = item?.user.name ?? "";
   const itemSellerRating = item?.user.rating ?? "尚未評價";
   const itemSellerPhone = item?.user.phone ?? "";
   const itemSellerImage = item?.user.image ?? "";
   const [quantity, setQuantity] = useState(1);
-  const { isLoading1, error, order, createOrder,success } = useCreateOrder();
+  const { isLoading1, error, order, createOrder, success } = useCreateOrder();
   const handleOrder = async () => {
     await createOrder(itemId, quantity);
     if (success) {
-      Swal.fire(
-        '成功',
-        '訂單成功建立!',
-        'success'
-      );
+      Swal.fire("成功", "訂單成功建立!", "success");
     } else if (error) {
       Swal.fire(
-        '錯誤',
+        "錯誤",
         error, // Displaying the error message returned by useCreateOrder hook
-        'error'
+        "error"
       );
     }
   };
@@ -48,7 +46,7 @@ export default function Itemdetail({ params }) {
   const handleDecrement = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
-console.log(item)
+  console.log(item);
   return (
     <div>
       <div className={styles.ItemBoard}>
@@ -126,9 +124,11 @@ console.log(item)
               </div>
             </div>
             <div className={styles.twobtn}>
-              <button type="button" className={styles.btn}>
-                聯絡買家
-              </button>
+              <Link href={`/chat/${itemSellerID}`}>
+                <button type="button" className={styles.btn}>
+                  聯絡買家
+                </button>
+              </Link>
               <button
                 type="button"
                 className={styles.btn}
