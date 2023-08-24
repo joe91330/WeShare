@@ -56,6 +56,12 @@ module.exports = {
             return res.status(200).json({ data: { item: item }});
         }
     },
+
+    getBuyItems: async (req, res) => {
+        const user_id = req.user.id;
+        const item = await itemModel.getBuyItems(res, user_id);
+        return res.status(200).json({ data: { items: item }});
+    },
     
     getItems: async (req, res) => {
         const keyword = req.query.keyword;

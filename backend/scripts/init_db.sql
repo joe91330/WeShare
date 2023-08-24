@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS order_table (
     seller_id INT NOT NULL,
     buyer_id INT NOT NULL,
     status ENUM('request', 'agree') NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT order_item_id_key FOREIGN KEY (item_id) REFERENCES item(id) ON DELETE CASCADE,
     CONSTRAINT order_seller_id_key FOREIGN KEY (seller_id) REFERENCES user(id) ON DELETE CASCADE,
     CONSTRAINT order_buyer_id_key FOREIGN KEY (buyer_id) REFERENCES user(id) ON DELETE CASCADE

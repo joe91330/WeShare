@@ -129,16 +129,18 @@ module.exports = {
     getUserItem: async ( res, user_ID ) => {
         try {
             const sql = `
-                SELECT id, title, image, cost, tag 
+                SELECT id, buyers_limit, num_of_buyers, title, image, cost, tag 
                 FROM item 
                 WHERE seller_id = ?
                 ORDER BY id DESC
             `
             const [results] = await db.query(sql, [user_ID]);
             const itemList = results.map((result) => {
-                const { id, title, image, cost, tag } = result
+                const { id, buyers_limit, num_of_buyers, title, image, cost, tag } = result
                 return {
                     id: id,
+                    buyers_limit: buyers_limit,
+                    num_of_buyers: num_of_buyers,
                     title : title,
                     image: image,
                     cost: cost,
@@ -192,7 +194,7 @@ module.exports = {
             }
             return "user added."
         } catch (err) {
-            return util.databaseError(err,'getUserItem',res);
+            return util.databaseError(err,'addTest',res);
         }
     },
 
@@ -207,7 +209,7 @@ module.exports = {
             }
             return data;
         } catch (err) {
-            return util.databaseError(err,'getUserItem',res);
+            return util.databaseError(err,'giveRating',res);
         }
     },
 
@@ -226,7 +228,7 @@ module.exports = {
             await db.query(sql_update, [parseFloat((rating_sum/receive_count).toFixed(2)), receiver_id])
             return true
         } catch (err) {
-            return util.databaseError(err,'getUserItem',res);
+            return util.databaseError(err,'updateAvgRating',res);
         }
     },
 }
