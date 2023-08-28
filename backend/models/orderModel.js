@@ -43,29 +43,30 @@ module.exports = {
             const sql = `SELECT order_table.id, order_table.quantity, order_table.seller_id, order_table.buyer_id, order_table.status, DATE_FORMAT(order_table.created_at, "%Y-%m-%d %H:%i:%s") AS created_at, user.id AS user_id, user.name, user.phone, user.image, user.rating \
             FROM order_table \
             ${userCondition} \
-            WHERE item_id = ? \
+            WHERE order_table.item_id = ? \
             ORDER BY order_table.id DESC`;
-            const [[results]] = await db.query(sql, [item_id]);
-            if(results.length == 0){
-                return [];
-            };
-            const order = {
-                id: results.id,
-                item_id: item_id,
-                quantity: results.quantity,
-                seller_id: results.seller_id, 
-                buyer_id: results.buyer_id, 
-                status: results.status,
-                created_at: results.created_at,
-                user: {
-                    id: results.user_id,
-                    name: results.name,
-                    phone: results.phone,
-                    image: results.image,                    
-                    rating: results.rating
-                }
-            };
-            return order;
+            const [results] = await db.query(sql, [item_id]);
+            let orders = [];
+            results.map(result => {
+                const order = {
+                    id: result.id,
+                    item_id: item_id,
+                    quantity: result.quantity,
+                    seller_id: result.seller_id, 
+                    buyer_id: result.buyer_id, 
+                    status: result.status,
+                    created_at: result.created_at,
+                    user: {
+                        id: result.user_id,
+                        name: result.name,
+                        phone: result.phone,
+                        image: result.image,                    
+                        rating: result.rating
+                    }
+                };
+                orders.push(order);
+            })
+            return orders;
         } catch (err) {
             return util.databaseError(err,'getItemOrders',res);
         }

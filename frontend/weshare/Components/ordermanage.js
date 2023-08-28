@@ -49,7 +49,7 @@ export default function Ordermanage() {
         <div className={styles.longLine} />
         <table className={styles.grid}>
           <tr>
-            <th>食物</th>
+            <th>商品</th>
             <th>價錢</th>
             <th>數量</th>
             <th>賣家</th>
