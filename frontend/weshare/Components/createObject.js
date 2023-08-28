@@ -68,9 +68,8 @@ export default function CreateObject() {
     };
 
     createItem(itemData);
-    if(success){
       router.push(`/user/${authorId}`);
-    }
+
   };
   return (
     <div className={styles.wholePage}>
