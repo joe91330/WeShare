@@ -1,26 +1,40 @@
 const jwt = require('jsonwebtoken');
 const mysql = require('mysql2/promise');
+require('dotenv').config();
 
 const db = mysql.createPool({
     host: 'mysql',
-    user: 'develop',
+    user: 'root',
     password: 'pwd',
-    database: 'weshare'
+    database: process.env.NODE_ENV === 'test' ? 'weshare_test' : 'weshare'
 });
-
-db.getConnection()
-    .then(connection => {
-        console.log('Connected to the database!');
-        connection.release(); // Release the connection back to the pool
-    })
-    .catch(error => {
-        console.error('Error connecting to the database:', error);
-    });
-
 
 module.exports = {
 
     db: db,
+
+    generateRandomString(length) {
+        const characters = 'abcdefghijklmnopqrstuvwxyz1234567890';
+        let result = 'u-';
+      
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          result += characters.charAt(randomIndex);
+        }
+      
+        return result;
+    },
+
+    generateRandomNum(length) {
+        const characters = '1234567890';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          result += characters.charAt(randomIndex);
+        }
+      
+        return parseInt(result);
+    },
 
     authorize_bearer: (req, res, next) => {
         const token = req.headers.authorization;
@@ -32,7 +46,7 @@ module.exports = {
             // 'WeShare' 之後要移去.env
             const decoded = jwt.verify(accessToken, 'WeShare');
             req.user = decoded;
-            next();
+	    next();
         } catch (error) {
             return res.status(403).json({ error: 'Invalid token' });
         }
@@ -41,6 +55,15 @@ module.exports = {
     authorize_json: (req,res,next) => {
         const type = req.get('content-type')
         if (type !== 'application/json'){
+            return res.status(415).json({ error: 'Invalid content type' })
+        } else { next(); }
+    },
+
+    authorize_multipart: (req,res,next) => {
+        const type = req.get('content-type')
+        console.log("check type：",type.substring(0, 19))
+        if (type.substring(0, 19) !== 'multipart/form-data'){
+            console.log("current type is:",type)
             return res.status(415).json({ error: 'Invalid content type' })
         } else { next(); }
     },

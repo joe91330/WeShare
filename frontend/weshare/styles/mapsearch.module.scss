@@ -1,0 +1,50 @@
+.searchBoard {
+    display: flex;
+    align-items: center;  // 確保子元素垂直居中
+    padding: 1rem;  // 為容器增加內部間距
+    
+    .searchPic {
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;  // 增加點擊動效
+  
+      &:hover {
+        transform: scale(1.05);  // 點擊時輕微放大
+      }
+  
+      img {  // 如果你的圖像有背景，可以使其圓角匹配輸入框
+        border-radius: 20px;
+      }
+    }
+    
+    .searchbox {
+      height: 3rem;
+      width: 250px;  // 增加寬度
+      border: 1px solid #ccc;  // 為輸入框增加一點邊框
+      background-color: #f6f6f6;  // 淺色背景
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  // 增加輕微的陰影效果
+      border-radius: 20px;
+      margin-left: 1rem;
+      padding-left: 1.5rem;
+      font-size: 1rem;  // 根據需要調整字體大小
+      transition: opacity 0.3s ease, visibility 0.3s ease, width 0.3s ease;  // 加入寬度變化的過渡效果
+  
+      &::placeholder {
+        color: #888;  // 輕微的灰色佔位符
+      }
+  
+      &:focus {  // 焦點時去掉瀏覽器默認的藍色邊框
+        outline: none;
+        border-color: #666;
+      }
+      
+    }
+  
+    &.active .searchbox {
+      visibility: visible;
+      opacity: 1;
+      width: 300px;  // 當激活時增加輸入框的寬度
+    }
+    
+  }

@@ -1,0 +1,97 @@
+.outborder {
+  width: 80%;
+  .outbutton {
+    width: 90px;
+    height: 32px; /* 稍微加大高度 */
+    background-color: #ccc;
+    border: 2px solid transparent; /* 添加邊框使其在活躍時有變化 */
+    border-radius: 16px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* 使所有屬性有過渡效果 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-top: 2rem ;
+    margin-bottom: 2rem;
+
+    &:hover {
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    }
+    .toggleText {
+      font-size: 14px;
+      font-weight: bold;
+      z-index: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #555;
+      display: flex;
+      justify-content: space-around;
+      .buyText {
+        left: 8px;
+      }
+      .sellText {
+        right: 8px;
+        position: absolute;
+      }
+    }
+  }
+  .active {
+    background-color: #2d6047;
+    border-color: #2d6047;
+
+    .buyText {
+      color: #fff;
+    }
+
+    .sellText {
+      color: #000;
+    }
+  }
+  .border {
+    border-radius: 1.5625rem;
+    border: 2px solid #000;
+    background: #fff;
+    height: 60vh;
+    .buySellRecord {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      text-align: center;
+      font-family: Permanent Marker;
+      font-size: 1.5rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.5rem;
+      height: 4rem;
+
+      // border-bottom: 2px solid #000;
+    }
+    .longLine {
+      border: 1px solid #000;
+    }
+    table.grid {
+      width: 100%;
+      border-collapse: collapse;
+      th,
+      td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+      }
+      th {
+        background-color: #24b147;
+      }
+      td {
+        background-color: #f2f2f2;
+
+        // 设置 flex-grow 来平均分布内容
+        flex-grow: 1;
+      }
+    }
+  }
+}

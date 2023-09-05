@@ -1,0 +1,77 @@
+.mainblock {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+.profileblock{
+    width: 50vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rightblock{
+    position: absolute;
+    top:10px;
+    left:91vw
+}
+.toggle-button {
+    width: 90px;
+    height: 32px; /* 稍微加大高度 */
+    background-color: #ccc;
+    border: 2px solid transparent; /* 添加邊框使其在活躍時有變化 */
+    border-radius: 16px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* 使所有屬性有過渡效果 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* 添加輕微陰影 */
+    
+}
+
+.toggle-button:hover {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15); /* 當滑鼠懸停時的效果 */
+}
+
+.toggle-button.active {
+    background-color: #2D6047;
+    border-color: #2D6047;
+}
+
+.slider {
+    width: 61px;
+    height: 34px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 添加陰影效果 */
+    border-radius: 15px;
+    position: absolute;
+    left: 1px;
+    transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 使用cubic-bezier為過渡添加動感 */
+    z-index: 1;
+}
+
+.toggle-button.active .slider {
+    left: 55px; /* 由於增加了邊框，所以左側稍微調整 */
+}
+
+.toggle-text {
+    font-size: 14px; /* 使字體稍大 */
+    font-weight: bold;
+    z-index: 0;
+    text-transform: uppercase; /* 大寫 */
+    letter-spacing: 0.5px; /* 字母間距 */
+    color: #555; /* 深一點的灰色，提供更好的對比 */
+}
+
+.sell-text {
+    left: 8px;
+    position: absolute;
+    color: azure;
+}
+
+.buy-text {
+    right: 8px;
+    position: absolute;
+}

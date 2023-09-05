@@ -1,51 +1,195 @@
-.wholePage {
-  border-radius: 75px;
-  border: 1px solid #000;
-  background: #fff;
+$common-font: 'Noto Serif TC', serif;
+$common-color-dark: white;
+$common-color-medium: white;
+$common-line-height: 1.2;
+$common-bg: #2d6047;
 
-  width: 40vw;
-  height: 50vh;
-  padding: 5%;
+%fontStyle {
+  font-family: $common-font;
+  font-style: normal;
+  font-weight: 400;
+  line-height: $common-line-height;
+}
+
+.buttonStyle {
+  text-decoration: none;
+  border-radius: 30px;
+  background: white;
+  width: 20%;
+  height: 3rem;
+  display: flex;
+  align-items: center; // 垂直置中
+  justify-content: center; // 水平置中
+  cursor: pointer;
+  color: #000;
+  @extend %fontStyle;
+  font-size: 1.25rem; // 使用 rem 單位
+  margin-top: 7rem;
+  margin-left: 1rem;
+  &:hover {
+    background: #eee; // 當滑鼠懸停時稍微變深
+    transform: scale(1.05); // 輕微放大效果
+  }
+}
+
+.wholePage {
+  background: $common-bg;
+  width: 50vw;
+  height: 68.5vh;
+  padding: 8%;
+
   .picAndName {
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
+    .Avator{
+      width: 11.25rem;
+      height: 11.25rem;
+      flex-shrink: 0;
+      .myfriendpic {
+          border-radius: 50%;
+          object-fit: cover;
+      }
+      &:hover .myfriendpic {
+          border-radius: 50%;
+          filter: brightness(70%);
+      }
+      .noHover .myfriendpic:hover {
+          border-radius: 50%;
+          filter: none; // 取消 hover 效果
+      }
+      .content{
+          visibility:hidden;
+      }
+      &:hover  .content{
+          display: block;
+          position: absolute;
+          top: 8.5rem;
+          left: 6.4rem;
+          color: white;
+          font-size: 0.8em;
+          padding: 5px;
+          visibility: visible;
+          font-family: Outfit;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 24px;
+          text-decoration-line: underline;
+          background:none;
+          border: none;
+          cursor: pointer;
+      }
 
-    .name {
-      color: #000;
-      font-family: Permanent Marker;
-      font-size: 40px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 24px;
-      padding: 10%;
+
+  }
+    .nameandfollow {
+      margin-left: 3rem;
+
+      .name, .follower, .line {
+        margin-bottom: 1rem;
+      }
+
+      .name {
+        @extend %fontStyle;
+        color: $common-color-dark;
+        font-size: 2.5rem; // 使用 rem 單位
+      }
+
+      .follower {
+        @extend %fontStyle;
+        color: $common-color-dark;
+        font-size: 1.125rem; // 使用 rem 單位
+      }
+
+      .line {
+        width: 15.6875rem;
+        height: 3px;
+        background: #FFF;
+      }
     }
   }
-  .tel_num {
-    color: #000;
-    font-family: Permanent Marker;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    padding: 30% 0% 10% 0%;
+
+  .tel_num, .rate_num {
+    @extend %fontStyle;
+    color: $common-color-medium;
+    font-size: 1.5rem; // 使用 rem 單位
+    margin-bottom: 15px;
+    padding-left: 5%;
   }
-  .starsAndRate {
+
+  .twobtn {
     display: flex;
-    align-items: center;
-    .rateButton {
-      border-radius: 25px;
-      border: 2px solid #000;
-      background: #2d6047;
+    flex-direction: row;
 
-      color: #fff;
-      font-family: Permanent Marker;
-      font-size: 32px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 24px; 
-      height: 3rem;
-      width: 30%;
-      margin-left: auto;
+    .connectbtn, .commentbtn {
+      @extend .buttonStyle;
     }
+  }
+}
+.hidden{
+  display: none;
+}
+#avatarEditor{
+  width: 29.75rem;
+  height: 30.8125rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: #FFF;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  position: fixed;
+  top:50%;
+  left:50%;
+
+  .titlebox{
+      background-color: #FFF;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1.25rem;
+      .title{
+          color: #000;
+          text-align: center;
+          font-family: Outfit;
+          font-size: 1.5rem;
+          font-style: normal;
+          font-weight: bold;
+          line-height: 1.5rem; /* 100% */
+      }
+      .cancelpic{
+          position: relative;
+          left: 9.5rem;
+          background-color: white;
+          border: none;
+          cursor: pointer;
+      }
+      
+      }
+      .editpic{
+          background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), lightgray 0px -41.057px / 100% 155.321% no-repeat;
+          height: 20.6875rem;
+          flex-shrink: 0;
+          position: relative;
+      }
+  .upload{
+      width: 8.75rem;
+      height: 2.5rem;
+      flex-shrink: 0;
+      border-radius: 0.375rem;
+      background: #5458F7;
+      color: #FFF;
+      text-align: center;
+      font-family: Outfit;
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: bold;
+      line-height: 1.5rem; /* 150% */
+      cursor: pointer;
+      margin-top: 1.19rem;
+      margin-left: 11rem;
+      border: none;
   }
 }

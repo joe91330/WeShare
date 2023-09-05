@@ -1,0 +1,9 @@
+.sepSide{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    .chatBrief{
+        display: flex;
+        flex-direction: column;
+    }
+}

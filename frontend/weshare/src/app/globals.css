@@ -1,6 +1,118 @@
 @import url("https://fonts.googleapis.com/css2?family=Pattaya&display=swap%22");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap");
 
 body {
   margin: 0;
   padding: 0;
+}
+.main{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    overflow-y: hidden;
+}
+.mapsearch{
+    position: absolute;
+    top:20px;
+    left:20px;
+    z-index: 1;
+}
+
+.itemplace{
+  padding-top:3.87rem;
+  padding-left:5.23rem;
+  width: 50%;
+  max-height: 77vh;
+  display: flex;          
+  flex-wrap: wrap;       
+  justify-content: flex-start;
+  align-items: flex-start;  
+  gap: 5rem;
+  overflow-y: auto;        
+}
+.itemplace::-webkit-scrollbar {
+  width: 10px;
+}
+
+.itemplace::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+.itemplace::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.itemplace::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+.itemdetail{
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.pac-container {
+  font-family: 'Pattaya', sans-serif;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 0.5rem; /* 添加上邊距以與.searchbox分開 */
+  z-index: 1000; /* 確保 Autocomplete 結果出現在其他元素之上 */
+}
+
+.pac-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.pac-item {
+  border-bottom: 1px solid #e8e8e8;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease;
+}
+
+.pac-item:hover {
+  background-color: #f7f7f7;
+}
+
+.pac-item-selected, .pac-item-selected:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.pac-item-query {
+  color: #333;
+  font-weight: 600;
+}
+
+.pac-matched {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.pac-item:not(.pac-item-query) {
+  color: #777;
 }

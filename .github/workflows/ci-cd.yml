@@ -1,0 +1,52 @@
+name: weshare workflow
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test_weshare:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Build docker compose for test
+      run: |
+        cd backend
+        echo "${{ secrets.ENV_FILE }}" > .env
+        mkdir private
+        echo "${{ secrets.PRIVATE_KEY }}" > private/priv.key
+        echo "${{ secrets.CERTIFICATE_CRT }}" > private/certificate.crt
+        docker-compose --env-file .env up -d
+    - name: Wait for containers to start
+      run: sleep 10
+    - name: Run test file
+      run: |
+        docker ps
+        docker exec weshare npm test --detectOpenHandles --watch=false --force-exit --maxWorkers=1
+
+  deploy_weshare:
+    needs: test_weshare
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to ec2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+        port: ${{ secrets.EC2_PORT }}
+        script: |
+          ls
+          if [ ! -d "WeShare" ]; then
+            git clone https://github.com/Distant22/WeShare.git
+          fi
+          cd WeShare/backend
+          ls
+          echo "${{ secrets.ENV_FILE }}" > .env
+          echo "${{ secrets.PRIVATE_KEY }}" > private/priv.key
+          echo "${{ secrets.CERTIFICATE_CRT }}" > private/certificate.crt
+          docker-compose down
+          docker-compose --env-file .env up --build -d
+          docker logs
+          docker ps -a

@@ -1,0 +1,49 @@
+{
+    "items": [
+      {
+        "id": 1,
+        "image": "image1.jpg",
+        "title": "夏威夷甜豆",
+        "introduction": "這是一瓶天然成分的洗髮精。",
+        "cost": 310,
+        "tag": "食品",
+        "costco": "內湖店",
+        "location": "台北市南港區東新街170巷47號1樓",
+        "expires_at": "2023-09-15 21:30:00"
+      },
+      {
+        "id": 2,
+        "image": "image2.jpg",
+        "title": "特大濃郁腰果",
+        "introduction": "夏天必備的電風扇，風力強勁。",
+        "cost": 340,
+        "tag": "食品",
+        "costco": "中和店",
+        "location": "忠孝復興一號出口",
+        "expires_at": "2023-10-10 18:00:00"
+      },
+      {
+        "id": 3,
+        "image": "image3.jpg",
+        "title": "鹽烤帶皮腰果",
+        "introduction": "新鮮橙子製成的果汁，不加糖。",
+        "cost": 220,
+        "tag": "食品",
+        "costco": "新莊店",
+        "location": "敦化國中",
+        "expires_at": "2023-08-25 15:00:00"
+      },
+      {
+        "id": 4,
+        "image": "image4.jpg",
+        "title": "鳳梨酥",
+        "introduction": "舒適的牛仔褲，適合日常穿著。",
+        "cost": 1000,
+        "tag": "衣物",
+        "costco": "桃園店",
+        "location": "政大附中",
+        "expires_at": "2023-09-20 16:00:00"
+      }
+    ]
+  }
+  

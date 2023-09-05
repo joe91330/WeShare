@@ -2,3 +2,9 @@ node_modules/
 # mac
 .DS_Store
 .env
+private/
+public/
+coverage/
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImhhbiIsImVtYWlsIjoiaGFuQGdtYWlsLmNvbSIsImlhdCI6MTY5MjE1NjAzMiwiZXhwIjoxNjkyMTU5NjMyfQ.2H2b0O85QS27-XvIzho6V785kv6sjsZf51Awoe20GeU
+private.key
+bundle_chained.crt

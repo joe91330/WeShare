@@ -1,20 +1,16 @@
-# Step 1: Build the Node.js application image
-FROM node:18-alpine as build
+# 使用 Node 官方映像作為基礎
+FROM node:16-alpine3.18
 
-# Set the working directory
-WORKDIR /app
-
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install application dependencies
-RUN npm install
-
-# Copy the entire application code
-COPY . .
-
-# Expose the port on which the application will run
+# 定義容器對外暴露的端口
 EXPOSE 3000
 
-# Set the entry point command to start your Node.js application
+# 複製 Node.js 應用程式到容器中
+WORKDIR /home/ubuntu/WeShare/backend/
+COPY . .
+
+# 安裝 Node.js 應用程式的相依套件
+RUN npm install
+
+# 執行 Node.js 應用程式
+# CMD ["npm", "run", "stress-test"]
 CMD ["node", "server.js"]

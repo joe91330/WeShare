@@ -1,0 +1,43 @@
+$infoWindowBackgroundColor: rgba(252, 252, 252, 0.9);
+$infoWindowBoxShadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$infoWindowMaxWidth: 200px;
+$infoWindowTextAlign: center;
+$infoWindowCursor: pointer;
+$paragraphColor: #333;
+$paragraphFontWeight: bold;
+$paragraphMargin: 0;
+
+.infoWindow, .hoveredInfoWindow {
+    background-color: $infoWindowBackgroundColor;
+    box-shadow: $infoWindowBoxShadow;
+    max-width: $infoWindowMaxWidth;
+    text-align: $infoWindowTextAlign;
+    cursor: $infoWindowCursor;
+    border-radius: 5px; // Added rounded corners for a smoother look
+    transition: background-color 0.3s ease; // Smooth transition for hover effect
+
+    p {
+      color: $paragraphColor;
+      font-weight: $paragraphFontWeight;
+      margin: $paragraphMargin;
+    }
+}
+
+.hoveredInfoWindow {
+    p {
+      color: black;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); // Text shadow for better readability
+      font-size: larger;
+    }
+}
+
+.mapstylebtn{
+    width: 3.75rem;
+    height: 3.75rem;
+    background: none;
+    border: none;
+    position: absolute;
+    left: 40rem;
+    top: 2rem;
+    cursor: pointer;
+}

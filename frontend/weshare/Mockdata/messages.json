@@ -1,0 +1,96 @@
+{
+    "Chats": [
+      {
+        "ID": 1,
+        "Message": "Hi",
+        "User": {
+          "ID": 2,
+          "Name": "User A",
+          "Image": "user_a.jpg"
+        }
+      },
+      {
+        "ID": 2,
+        "Message": "Hello",
+        "User": {
+          "ID": 3,
+          "Name": "User B",
+          "Image": "user_b.jpg"
+        }
+      },
+      {
+        "ID": 3,
+        "Message": "Hey there",
+        "User": {
+          "ID": 2,
+          "Name": "User C",
+          "Image": "user_c.jpg"
+        }
+      },
+      {
+        "ID": 4,
+        "Message": "How's it going?",
+        "User": {
+          "ID": 3,
+          "Name": "User D",
+          "Image": "user_d.jpg"
+        }
+      },
+      {
+        "ID": 5,
+        "Message": "Good to see you!",
+        "User": {
+          "ID": 3,
+          "Name": "User E",
+          "Image": "user_e.jpg"
+        }
+      },
+      {
+        "ID": 6,
+        "Message": "What's up?",
+        "User": {
+          "ID": 2,
+          "Name": "User F",
+          "Image": "user_f.jpg"
+        }
+      },
+      {
+        "ID": 7,
+        "Message": "Not much",
+        "User": {
+          "ID": 2,
+          "Name": "User G",
+          "Image": "user_g.jpg"
+        }
+      },
+      {
+        "ID": 8,
+        "Message": "How about you?",
+        "User": {
+          "ID": 2,
+          "Name": "User H",
+          "Image": "user_h.jpg"
+        }
+      },
+      {
+        "ID": 9,
+        "Message": "Just relaxing",
+        "User": {
+          "ID": 3,
+          "Name": "User I",
+          "Image": "user_i.jpg"
+        }
+      },
+      {
+        "ID": 10,
+        "Message": "Sounds nice",
+        "User": {
+          "ID": 3,
+          "Name": "User J",
+          "Image": "user_j.jpg"
+        }
+      }
+    ],
+    "next_cursor": null
+  }
+  

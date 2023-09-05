@@ -23,7 +23,6 @@
       "import/no-unresolved": "off",
       "no-console": "off",
       "react/react-in-jsx-scope": "off"
-
   }
-
+  
 }

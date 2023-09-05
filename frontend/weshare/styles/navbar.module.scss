@@ -2,12 +2,19 @@
 
 .border {
   width: 100%;
-  height: 100px;
+  height: 14vh;
   display: flex;
   justify-content: flex-start;
   border-bottom: 1px solid #d9d9d9;
   background-color: white;
-
+  align-items: center;
+  .Link{
+    text-decoration: none;
+  }
+  .logo{
+    cursor: pointer;
+    
+  }
   .weshare {
     margin: 41px 40px 35px 0px;
     color: #092e18;
@@ -17,66 +24,89 @@
     font-weight: 400;
     line-height: 24px;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    text-decoration:none;
+    width: 15.375rem;
   }
 
-  .search_bar {
-    margin-top: 27px;
-    display: flex;
-    width: 330px;
-    height: 3rem;
+.search_bar {
+  display: flex;
+  width: 340px;
+  height: 3.2rem;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 1px solid lightgray; // 使用較淺的邊框顏色
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  transition: box-shadow 0.3s ease;
+  background-color: none;
+  .search_pic {
+    margin-left: 10px;
+    margin-right: 12px;
+    width: 28px;
+    height: 28px;
     flex-shrink: 0;
-    border-radius: 30px;
-    border: 1px solid #000;
-    justify-content: flex-start;
-    align-items: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
 
-    .search_pic {
-      margin-left: 20px;
-      margin-right: 8px;
-      width: 25px;
-      height: 25px;
-      flex-shrink: 0;
-    }
-
-    .searching {
-      color: #000;
-      font-family: Permanent Marker;
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 16px;
-      border: none;
-      width: 40%;
-    }
-    .filter {
-      color: #000;
-      font-family: Permanent Marker;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 16px;
-      border-radius: 30px;
-      border: 1px solid #000;
-      background: #fff;
-      text-align: center;
-      cursor: pointer;
-
-    }
   }
+
+  .searching {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    border: none;
+    height: 2.8rem;
+    width: 40%;
+    padding: 0 8px;
+    background-color: transparent; // 使背景色透明
+    outline: none; // 移除默認的焦點框
+  }
+
+  .filter {
+    color: #000;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    border-radius: 30px;
+    border: 1px solid lightgray; // 同樣使用較淺的邊框顏色
+    background: #fff;
+    text-align: center;
+    cursor: pointer;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-left: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      border-color: gray; // hover時使邊框稍微變深
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); // hover時增加輕微的陰影
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+  }
+}
+
   .share_post {
+    text-decoration:none;
     border-radius: 30px;
     border: 2px solid #000;
     background: #2d6047;
     width: 10%;
     height: 3rem;
-    margin-top: 27px;
     display: flex;
     align-items: center; /* 垂直置中 */
     justify-content: center; /* 水平置中 */
     margin-left: 20px;
     cursor: pointer;
-
-
     color: #fff;
     font-family: Pattaya;
     font-size: 28px;
@@ -84,20 +114,299 @@
     font-weight: 400;
     line-height: 24px; 
     margin-left: 20%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
   }
+  .share_post:hover {
+    transform: scale(1.05); /* 按鈕放大5% */
+    background-color: #1a402d; /* 深綠色作為hover背景 */
+}
   .message_box {
     align-self: center;
     margin: 0px 0px 0px 20px;
   }
-  .notification {
-    align-self: center;
-    margin: 0px 20px 0px 20px;
-  }
-  .profile_pic {
-    width: 60px;
-    height: 60px;
-    align-self: center;
-    margin-left: auto;
-    margin-right: 10%;
-  }
+
+              .notification{
+                    margin-left: 2rem;
+                    
+                .notification_icon {
+                    position: relative;
+                    &:hover .notimenu {
+                      visibility: visible;
+                    }
+                  }
+                .notimenu{
+                    width: 20.6875rem;
+                    flex-shrink: 0;
+                    border-radius: 1.25rem;
+                    border: 1px solid rgba(0, 0, 0, 0.10);
+                    background: #F6F6F6;
+                    position: absolute;
+                    right:1rem;
+                    z-index: 999;
+                    visibility: hidden;
+                    transition: 0.5s;
+                    font-family: 'Noto Serif TC', serif;
+                    .notidiv1{
+                        width: 20.6875rem;
+                        height: 4rem;
+                        flex-shrink: 0;
+                        border-radius: 1.25rem 1.25rem 0rem 0rem;
+                        border: 1px solid rgba(0, 0, 0, 0.10);
+                        background:#2d6047;
+                        display: flex;
+                        flex-direction: row;
+                        .notification_pic{
+                            border-radius: 50%;
+                            object-fit: cover;
+                            margin-top:0.87rem;
+                            margin-left:1.37rem;
+                            margin-right: 0.62rem;
+                            
+                        }
+                        .notititle{
+                            color: #FFF;
+                            font-size: 1.25rem;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 1.5rem; /* 120% */
+
+                        }
+                    }
+                    .div2{
+                        display:flex;
+                        flex-direction: row;
+                        padding-top: 0.8rem;
+                        padding-bottom: 0.8rem;
+                        font-family: 'Noto Serif TC', serif;
+                        .leftboard{
+                          padding-left: 1rem;
+                          width:30%;
+                          .menu_pic{
+                            border-radius: 50%;
+                            object-fit: cover;
+                          }
+                          .createdtime{
+                            color: #2D6047;
+                            font-size: 0.875rem;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 1.5rem; /* 171.429% */
+                          }
+                        }
+                    .rightboard{
+                        margin-left: 1rem;
+                        width:60%;
+                        .noticontent{
+                            color: #000;
+                            font-size: 1rem;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 1.5rem; /* 150% */
+                            margin-left: 1.31rem;
+                            font-weight:bold;
+                            word-wrap: break-word;
+                        }
+                        .twobtn{
+                          font-family:'Noto Serif TC', serif;
+                          padding-left: 1.2rem;
+                          padding-top: 0.5rem;
+                          .confirmbtn{
+                            width: 4.5625rem;
+                            height: 1.9375rem;
+                            flex-shrink: 0;
+                            border-radius: 1.875rem;
+                            border: 0px solid #000;
+                            background: #489972;
+                            color: #FFF;
+                            font-family: 'Noto Serif TC', serif;
+                            font-size: 0.875rem;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 1.5rem; /* 171.429% */
+                            margin-right: 0.5rem;
+                            cursor: pointer;
+                          }
+                          .canclebtn{
+                            width: 4.5625rem;
+                            height: 1.9375rem;
+                            flex-shrink: 0;
+                            border-radius: 1.875rem;
+                            border: 0px solid #000;
+                            background: #F00;
+                            font-family: 'Noto Serif TC', serif;
+                            font-size: 0.875rem;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 1.5rem; /* 171.429% */
+                            color: #FFF;
+                            cursor: pointer;
+                          }
+
+                        }
+                        .giverate{
+                          padding-left: 1.2rem;
+                        }
+                    }
+                    
+                    
+                  }
+                  .notiline{
+                    width: 18.5625rem;
+                    height: 0.0625rem;
+                    background: #D1CACE;
+                    margin-left:1.13rem;
+                }
+                .viewMoreButton{
+                  width: 16.1875rem;
+                  color: #000;
+                  text-align: center;
+                  font-size: 1rem;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: 1.5rem; /* 150% */
+                  text-decoration-line: underline;
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+                  margin-top: 0.44rem;
+                  margin-left: 2.25rem;
+                  margin-bottom: 0.8rem;
+              }
+                }
+                transition:1s;
+                .is_readcircle{
+                    position: absolute;
+                    bottom: 1.7rem;
+                    left: 1.4rem;
+                    border-radius: 50%;
+                    width: 21.33px;
+                    height: 21.33px;
+                    background-color:rgba(222, 63, 79, 1) ;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    color: var(--white, #FFF);
+                    text-align: center;
+                    font-family: 'Noto Serif TC', serif;
+                    font-size: 0.8125rem;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+  .profilepic{
+    position: relative;
+    left:3rem;
+    .authorpic{
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .profile_pic1{
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .menu{
+        position: absolute;
+        top:4.81rem;
+        right: 0rem;
+        visibility: hidden;
+        width: 16.3125rem;
+        min-height: 12.3rem;
+        flex-shrink: 0;
+        border-radius: 1.25rem;
+        border: 1px solid rgba(0, 0, 0, 0.10);
+        background-color: #F6F6F6;
+        cursor: pointer;
+        z-index: 999;
+        .div1{
+            width: 16.3125rem;
+            min-height: 4rem;
+            flex-shrink: 0;
+            border-radius: 1.25rem 1.25rem 0rem 0rem;
+            border: 1px solid rgba(0, 0, 0, 0.10);
+            background:  #2d6047;
+            display: flex;
+            flex-direction: row;
+            .profile_pic{
+                border-radius: 50%;
+                object-fit: cover;
+                margin-top:0.81rem;
+                margin-left:1.13rem;
+                margin-right:1.18rem;
+            }
+            .yourname{
+                color: #FFF;
+                font-family:'Noto Serif TC', serif;
+                font-size: 1.25rem;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 1.5rem; /* 120% */
+                max-height: 16.3125rem; 
+            }
+        }
+        .div2{
+            transition: background-color 0.3s ease-in-out;
+            .hovertit{
+                width: 12.76419rem;
+                color: #000;
+                font-family: 'Noto Serif TC', serif;
+                font-size: 1.375rem;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 1.5rem; /* 109.091% */
+                font-weight: bold;
+                background-color: transparent; /* 移除背景顏色 */
+                border: none; 
+                text-align: left;
+                cursor: pointer;
+                padding-top:1.44rem ;
+                padding-left:1.48rem ;
+                padding-bottom:1.19rem ;
+            }
+            .line{
+                width: 14.63688rem;
+                height: 0.0625rem;
+                background: #D1CACE;
+                margin-left: 0.84rem;
+            }
+        }
+        .div2:hover {
+            /* Styles to apply when hovering over div2 */
+            background-color: rgba(0, 0, 0, 0.1); /* Change the background color to your desired hover color */
+        }
+        .div3{
+            transition: background-color 0.3s ease-in-out;
+            border-radius: 0 0 1.25rem 1.25rem;
+            text-decoration-line: none;
+            .hovertit{
+                width: 12.76419rem;
+                color: #000;
+                font-family: 'Noto Serif TC', serif;
+                font-size: 1.375rem;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 1.5rem; /* 109.091% */
+                font-weight: bold;
+                background-color: transparent; /* 移除背景顏色 */
+                border: none; 
+                text-align: left;
+                cursor: pointer;
+                padding-top:1.44rem ;
+                padding-left:1.48rem ;
+                padding-bottom:1.19rem ;
+                
+            }
+        }
+        .div3:hover {
+            /* Styles to apply when hovering over div2 */
+            background-color: rgba(0, 0, 0, 0.1); /* Change the background color to your desired hover color */
+        }
+        transition:0.5s;
+    }
+}
+
+  .profilepic:hover .menu {
+    visibility: visible; 
+}
 }
